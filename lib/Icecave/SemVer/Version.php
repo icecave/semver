@@ -4,6 +4,9 @@ namespace Icecave\SemVer;
 use InvalidArgumentException;
 use Typhoon\Typhoon;
 
+/**
+ * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.1
+ */
 class Version
 {
     /**
@@ -25,9 +28,12 @@ class Version
     }
 
     /**
-     * @param string $version A semantic version number string to parse.
+     * Create a Version instance from a string.
      *
-     * @return Version
+     * @param string $version The string to parse.
+     *
+     * @return Version The resulting Version instance.
+     * @throws InvalidArgumentException if the version string is not a valid semantic version number.
      */
     public static function parse($version)
     {
@@ -60,13 +66,31 @@ class Version
     }
 
     /**
+     * Adapt a value to a Version instance.
+     *
+     * If $version is an instance of Version it is return unchanged, otherwise an attempt is made to parse $version as a string.
+     *
+     * @param Version|string $version A Version instance, or semantic version number string to parse.
+     *
+     * @return Version The resulting Version instance.
+     * @throws InvalidArgumentException if the $version is a string and is not a valid semantic version number.
+     */
+    public static function adapt($version)
+    {
+        if ($version instanceof static) {
+            return $version;
+        }
+        return static::parse($version);
+    }
+
+    /**
      * @return integer The major version number.
      */
     public function major()
     {
         return $this->major;
     }
-    
+
     /**
      * Set the major version.
      *
@@ -138,7 +162,7 @@ class Version
     {
         return $this->preReleaseIdentifier;
     }
-    
+
     /**
      * Set the pre-release identifier.
      *

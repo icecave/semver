@@ -9,7 +9,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
     {
         $this->_version = new Version(1, 2, 3, 'preReleaseIdentifier', 'buildIdentifier');
     }
-    
+
     public function testDefaults()
     {
         $version = new Version;
@@ -76,7 +76,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $this->_version->setPatch(100);
         $this->assertSame(100, $this->_version->patch());
     }
-    
+
     public function testPreReleaseIdentifier()
     {
         $this->assertSame('preReleaseIdentifier', $this->_version->preReleaseIdentifier());
@@ -140,6 +140,21 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $this->assertSame($string, $version->string());
     }
 
+    /**
+     * @dataProvider validVersionStrings
+     */
+    public function testAdaptWithValidStrings($string)
+    {
+        $version = Version::adapt($string);
+        $this->assertInstanceOf(__NAMESPACE__ . '\Version', $version);
+        $this->assertSame($string, $version->string());
+    }
+
+    public function testAdapt()
+    {
+        $this->assertSame($this->_version, Version::adapt($this->_version));
+    }
+
     public function validVersionStrings()
     {
         return array(
@@ -160,6 +175,15 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function testParseFailure($string)
     {
         Version::parse($string);
+    }
+
+    /**
+     * @dataProvider invalidVersionStrings
+     * @expectedException InvalidArgumentException
+     */
+    public function testAdaptFailure($string)
+    {
+        Version::adapt($string);
     }
 
     public function invalidVersionStrings()

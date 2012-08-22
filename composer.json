@@ -1,0 +1,26 @@
+{
+    "name": "icecave/semver",
+    "type": "library",
+    "description": "Semantic versioning.",
+    "keywords": ["semantic", "version", "semver"],
+    "homepage": "https://github.com/IcecaveStudios/semver",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Harris",
+            "email": "james.harris@icecave.com.au"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "eloquent/typhoon": "dev-master@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Icecave\\SemVer": "lib",
+            "Typhoon": "lib-typhoon"
+        }
+    }
+}

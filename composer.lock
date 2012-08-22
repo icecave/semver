@@ -1,0 +1,49 @@
+{
+    "hash": "fe1d49f0828a17e84c2a3cf72c6391b4",
+    "packages": [
+
+    ],
+    "packages-dev": [
+        {
+            "package": "eloquent/asplode",
+            "version": "1.0.4"
+        },
+        {
+            "package": "eloquent/blox",
+            "version": "1.2.0"
+        },
+        {
+            "package": "eloquent/cosmos",
+            "version": "1.0.1"
+        },
+        {
+            "package": "eloquent/typhax",
+            "version": "0.6.0"
+        },
+        {
+            "package": "eloquent/typhoon",
+            "version": "dev-master",
+            "source-reference": "eab21410c1fe8f1fe4bffe8576035e3741cbf66a",
+            "commit-date": "1345480247"
+        },
+        {
+            "package": "icecave/isolator",
+            "version": "2.1.0"
+        },
+        {
+            "package": "icecave/visita",
+            "version": "0.1.0"
+        },
+        {
+            "package": "symfony/console",
+            "version": "v2.0.16"
+        }
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "eloquent/typhoon": 20
+    }
+}

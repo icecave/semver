@@ -134,6 +134,40 @@ class VersionTyphoon
         $check($arguments[0], 0);
     }
 
+    public function adapt(array $arguments)
+    {
+        $argumentCount = count($arguments);
+        if ($argumentCount < 1) {
+            throw new MissingArgumentException('version', 0, 'Icecave\\SemVer\\Version|string');
+        } elseif ($argumentCount > 1) {
+            throw new UnexpectedArgumentException(1, $arguments[1]);
+        }
+
+        $check = function($argument, $index) {
+            $check = function($value) {
+                $check = function($value) {
+                    return $value instanceof \Icecave\SemVer\Version;
+                };
+                if ($check($value)) {
+                    return true;
+                }
+
+                $check = function($value) {
+                    return is_string($value);
+                };
+                if ($check($value)) {
+                    return true;
+                }
+
+                return false;
+            };
+            if (!$check($argument)) {
+                throw new UnexpectedArgumentValueException('version', $index, $argument, 'Icecave\\SemVer\\Version|string');
+            }
+        };
+        $check($arguments[0], 0);
+    }
+
     public function major(array $arguments)
     {
         if (count($arguments) > 0) {
@@ -222,6 +256,13 @@ class VersionTyphoon
         }
     }
 
+    public function preReleaseIdentifierParts(array $arguments)
+    {
+        if (count($arguments) > 0) {
+            throw new UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
     public function setPreReleaseIdentifier(array $arguments)
     {
         $argumentCount = count($arguments);
@@ -257,6 +298,13 @@ class VersionTyphoon
     }
 
     public function buildIdentifier(array $arguments)
+    {
+        if (count($arguments) > 0) {
+            throw new UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function buildIdentifierParts(array $arguments)
     {
         if (count($arguments) > 0) {
             throw new UnexpectedArgumentException(0, $arguments[0]);

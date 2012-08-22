@@ -102,5 +102,4 @@ class Comparitor
         // Compare both sides as strings ...
         return strcmp($left, $right);
     }
-
 }

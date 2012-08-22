@@ -164,6 +164,17 @@ class Version
     }
 
     /**
+     * @return array An array containing the dot-separated components of the pre-release identifier.
+     */
+    public function preReleaseIdentifierParts()
+    {
+        if (null === $this->preReleaseIdentifier) {
+            return array();
+        }
+        return explode('.', $this->preReleaseIdentifier);
+    }
+
+    /**
      * Set the pre-release identifier.
      *
      * @param string|null $preReleaseIdentifier The pre-release identifier, not including the leading hyphen.
@@ -185,6 +196,17 @@ class Version
     public function buildIdentifier()
     {
         return $this->buildIdentifier;
+    }
+
+    /**
+     * @return array An array containing the dot-separated components of the build identifier.
+     */
+    public function buildIdentifierParts()
+    {
+        if (null === $this->buildIdentifier) {
+            return array();
+        }
+        return explode('.', $this->buildIdentifier);
     }
 
     /**

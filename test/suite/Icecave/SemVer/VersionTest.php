@@ -88,6 +88,18 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $this->assertSame('foo', $this->_version->preReleaseIdentifier());
     }
 
+    public function testPreReleaseIdentifierParts()
+    {
+        $this->_version->setPreReleaseIdentifier(null);
+        $this->assertSame(array(), $this->_version->preReleaseIdentifierParts());
+
+        $this->_version->setPreReleaseIdentifier('foo');
+        $this->assertSame(array('foo'), $this->_version->preReleaseIdentifierParts());
+
+        $this->_version->setPreReleaseIdentifier('foo.bar');
+        $this->assertSame(array('foo', 'bar'), $this->_version->preReleaseIdentifierParts());
+    }
+
     /**
      * @expectedException InvalidArgumentException
      */
@@ -99,6 +111,18 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function testBuildIdentifier()
     {
         $this->assertSame('buildIdentifier', $this->_version->buildIdentifier());
+    }
+
+    public function testBuildIdentifierParts()
+    {
+        $this->_version->setBuildIdentifier(null);
+        $this->assertSame(array(), $this->_version->buildIdentifierParts());
+
+        $this->_version->setBuildIdentifier('foo');
+        $this->assertSame(array('foo'), $this->_version->buildIdentifierParts());
+
+        $this->_version->setBuildIdentifier('foo.bar');
+        $this->assertSame(array('foo', 'bar'), $this->_version->buildIdentifierParts());
     }
 
     public function testSetBuildIdentifier()

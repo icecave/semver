@@ -9,6 +9,11 @@ use Typhoon\Typhoon;
  */
 class Comparitor
 {
+    public function __construct()
+    {
+        $this->typhoon = Typhoon::get(__CLASS__, func_get_args());
+    }
+
     /**
      * @param Version $left
      * @param Version $right
@@ -50,6 +55,8 @@ class Comparitor
      */
     protected function compareIdentifierParts(array $left, array $right, $invertZeroLengthChecks = false)
     {
+        $this->typhoon->compareIdentifierParts(func_get_args());
+
         $leftCount = count($left);
         $rightCount = count($right);
 
@@ -83,6 +90,8 @@ class Comparitor
      */
     protected function compareIdentifierPart($left, $right)
     {
+        $this->typhoon->compareIdentifierPart(func_get_args());
+
         $leftDigits = ctype_digit($left);
         $rightDigits = ctype_digit($right);
 
@@ -102,4 +111,6 @@ class Comparitor
         // Compare both sides as strings ...
         return strcmp($left, $right);
     }
+
+    private $typhoon;
 }

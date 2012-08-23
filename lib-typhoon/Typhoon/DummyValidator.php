@@ -11,7 +11,7 @@
 
 namespace Typhoon;
 
-class DummyValidator
+class DummyValidator extends Validator
 {
     /**
      * @param string $name

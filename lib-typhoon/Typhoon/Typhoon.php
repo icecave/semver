@@ -37,7 +37,7 @@ abstract class Typhoon
 
         $validator = static::$instances[$className];
         if (null !== $arguments) {
-            $validator->validateConstructor($arguments);
+            $validator->validateConstruct($arguments);
         }
 
         return $validator;

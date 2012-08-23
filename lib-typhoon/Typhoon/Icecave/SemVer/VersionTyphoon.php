@@ -15,10 +15,11 @@ namespace Typhoon\Icecave\SemVer;
 use Typhoon\Exception\MissingArgumentException;
 use Typhoon\Exception\UnexpectedArgumentException;
 use Typhoon\Exception\UnexpectedArgumentValueException;
+use Typhoon\Validator;
 
-class VersionTyphoon
+class VersionTyphoon extends Validator
 {
-    public function validateConstructor(array $arguments)
+    public function validateConstruct(array $arguments)
     {
         $argumentCount = count($arguments);
         if ($argumentCount > 5) {
@@ -353,6 +354,13 @@ class VersionTyphoon
     }
 
     public function string(array $arguments)
+    {
+        if (count($arguments) > 0) {
+            throw new UnexpectedArgumentException(0, $arguments[0]);
+        }
+    }
+
+    public function validateToString(array $arguments)
     {
         if (count($arguments) > 0) {
             throw new UnexpectedArgumentException(0, $arguments[0]);

@@ -39,9 +39,29 @@ class Version
     {
         Typhoon::get(__CLASS__)->parse(func_get_args());
 
+        $parsedVersion = null;
+        if (static::tryParse($version, $parsedVersion)) {
+            return $parsedVersion;
+        }
+
+        throw new InvalidArgumentException('The string "' . $version . '" does not describe a valid semantic version.');
+    }
+
+    /**
+     * Create a Version instance from a string, if possible.
+     *
+     * @param string $version The string to parse.
+     * @param Version|null &$parsedVersion The resulting Version instance.
+     *
+     * @return boolean True if the version string was parsed successfully; otherwise, false.
+     */
+    public static function tryParse($version, Version &$parsedVersion = null)
+    {
+        Typhoon::get(__CLASS__)->tryParse(func_get_args());
+
         $matches = array();
         if (!preg_match(static::$versionPattern, $version, $matches)) {
-            throw new InvalidArgumentException('The string "' . $version . '" does not describe a valid semantic version.');
+            return false;
         }
 
         if (array_key_exists('preReleaseIdentifier', $matches) && $matches['preReleaseIdentifier'] !== '') {
@@ -56,13 +76,29 @@ class Version
             $buildIdentifier = null;
         }
 
-        return new static(
+        $parsedVersion = new static(
             intval($matches['major']),
             intval($matches['minor']),
             intval($matches['patch']),
             $preReleaseIdentifier,
             $buildIdentifier
         );
+
+        return true;
+    }
+
+    /**
+     * Check if a version string represents a valid semantic version.
+     *
+     * @param string $version The version string to check.
+     *
+     * @return boolean True if the version string was parsed successfully; otherwise, false.
+     */
+    public static function isValid($version)
+    {
+        Typhoon::get(__CLASS__)->isValid(func_get_args());
+
+        return preg_match(static::$versionPattern, $version) === 1;
     }
 
     /**

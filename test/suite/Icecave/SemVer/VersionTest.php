@@ -174,6 +174,26 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $this->assertSame($string, $version->string());
     }
 
+    /**
+     * @dataProvider validVersionStrings
+     */
+    public function testTryParse($string)
+    {
+        $version = null;
+        $result = Version::tryParse($string, $version);
+        $this->assertTrue($result);
+        $this->assertInstanceOf(__NAMESPACE__ . '\Version', $version);
+        $this->assertSame($string, $version->string());
+    }
+
+    /**
+     * @dataProvider validVersionStrings
+     */
+    public function testIsValid($string)
+    {
+        $this->assertTrue(Version::isValid($string));
+    }
+
     public function testAdapt()
     {
         $this->assertSame($this->_version, Version::adapt($this->_version));
@@ -199,6 +219,27 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function testParseFailure($string)
     {
         Version::parse($string);
+    }
+
+    /**
+     * @dataProvider invalidVersionStrings
+     * @expectedException InvalidArgumentException
+     */
+    public function testTryParseFailure($string)
+    {
+        $version = null;
+        $result = Version::parse($string, $version);
+
+        $this->assertFalse($result);
+        $this->assertNull($version);
+    }
+
+    /**
+     * @dataProvider invalidVersionStrings
+     */
+    public function testIsValidFailure($string)
+    {
+        $this->assertFalse(Version::isValid($string));
     }
 
     /**

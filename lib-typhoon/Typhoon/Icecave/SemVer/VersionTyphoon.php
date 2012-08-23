@@ -135,6 +135,58 @@ class VersionTyphoon extends Validator
         $check($arguments[0], 0);
     }
 
+    public function tryParse(array $arguments)
+    {
+        $argumentCount = count($arguments);
+        if ($argumentCount < 1) {
+            throw new MissingArgumentException('version', 0, 'string');
+        } elseif ($argumentCount > 2) {
+            throw new UnexpectedArgumentException(2, $arguments[2]);
+        }
+
+        $check = function($argument, $index) {
+            $check = function($value) {
+                return is_string($value);
+            };
+            if (!$check($argument)) {
+                throw new UnexpectedArgumentValueException('version', $index, $argument, 'string');
+            }
+        };
+        $check($arguments[0], 0);
+
+        if ($argumentCount > 1) {
+            $check = function($argument, $index) {
+                $check = function($value) {
+                    return true;
+                };
+                if (!$check($argument)) {
+                    throw new UnexpectedArgumentValueException('parsedVersion', $index, $argument, 'mixed');
+                }
+            };
+            $check($arguments[1], 1);
+        }
+    }
+
+    public function isValid(array $arguments)
+    {
+        $argumentCount = count($arguments);
+        if ($argumentCount < 1) {
+            throw new MissingArgumentException('version', 0, 'string');
+        } elseif ($argumentCount > 1) {
+            throw new UnexpectedArgumentException(1, $arguments[1]);
+        }
+
+        $check = function($argument, $index) {
+            $check = function($value) {
+                return is_string($value);
+            };
+            if (!$check($argument)) {
+                throw new UnexpectedArgumentValueException('version', $index, $argument, 'string');
+            }
+        };
+        $check($arguments[0], 0);
+    }
+
     public function adapt(array $arguments)
     {
         $argumentCount = count($arguments);

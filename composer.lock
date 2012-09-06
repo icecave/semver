@@ -1,5 +1,5 @@
 {
-    "hash": "fe1d49f0828a17e84c2a3cf72c6391b4",
+    "hash": "c789ea1701f905bc71d09ccfa323f1a5",
     "packages": [
 
     ],
@@ -18,13 +18,13 @@
         },
         {
             "package": "eloquent/typhax",
-            "version": "0.6.0"
+            "version": "0.6.2"
         },
         {
             "package": "eloquent/typhoon",
             "version": "dev-master",
-            "source-reference": "0.4.0",
-            "commit-date": "1345654232"
+            "source-reference": "f6847481d2aa7e58b724fa3e37db1ddef0b25a91",
+            "commit-date": "1346302205"
         },
         {
             "package": "icecave/isolator",
@@ -36,7 +36,7 @@
         },
         {
             "package": "symfony/console",
-            "version": "v2.0.16"
+            "version": "v2.0.17"
         }
     ],
     "aliases": [

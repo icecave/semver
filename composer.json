@@ -1,7 +1,7 @@
 {
     "name": "icecave/semver",
     "type": "library",
-    "description": "Semantic versioning.",
+    "description": "Semantic version parser and comparitors for PHP.",
     "keywords": ["semantic", "version", "semver"],
     "homepage": "https://github.com/IcecaveStudios/semver",
     "license": "MIT",

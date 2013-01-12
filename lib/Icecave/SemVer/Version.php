@@ -10,11 +10,11 @@ use Typhoon\Typhoon;
 class Version
 {
     /**
-     * @param integer $major The major version number.
-     * @param integer $minor The minor version number.
-     * @param integer $patch The patch version number.
+     * @param integer     $major                The major version number.
+     * @param integer     $minor                The minor version number.
+     * @param integer     $patch                The patch version number.
      * @param string|null $preReleaseIdentifier The pre-release identifier, not including the leading hyphen.
-     * @param string|null $buildIdentifier The build identifier, not including the leading plus-sign.
+     * @param string|null $buildIdentifier      The build identifier, not including the leading plus-sign.
      */
     public function __construct($major = 0, $minor = 0, $patch = 0, $preReleaseIdentifier = null, $buildIdentifier = null)
     {
@@ -32,7 +32,7 @@ class Version
      *
      * @param string $version The string to parse.
      *
-     * @return Version The resulting Version instance.
+     * @return Version                  The resulting Version instance.
      * @throws InvalidArgumentException if the version string is not a valid semantic version number.
      */
     public static function parse($version)
@@ -50,7 +50,7 @@ class Version
     /**
      * Create a Version instance from a string, if possible.
      *
-     * @param string $version The string to parse.
+     * @param string       $version        The string to parse.
      * @param Version|null &$parsedVersion The resulting Version instance.
      *
      * @return boolean True if the version string was parsed successfully; otherwise, false.
@@ -108,7 +108,7 @@ class Version
      *
      * @param Version|string $version A Version instance, or semantic version number string to parse.
      *
-     * @return Version The resulting Version instance.
+     * @return Version                  The resulting Version instance.
      * @throws InvalidArgumentException if the $version is a string and is not a valid semantic version number.
      */
     public static function adapt($version)
@@ -116,6 +116,7 @@ class Version
         if ($version instanceof static) {
             return $version;
         }
+
         return static::parse($version);
     }
 
@@ -207,6 +208,7 @@ class Version
         if (null === $this->preReleaseIdentifier) {
             return array();
         }
+
         return explode('.', $this->preReleaseIdentifier);
     }
 
@@ -242,6 +244,7 @@ class Version
         if (null === $this->buildIdentifier) {
             return array();
         }
+
         return explode('.', $this->buildIdentifier);
     }
 

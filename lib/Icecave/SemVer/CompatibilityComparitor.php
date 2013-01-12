@@ -1,9 +1,6 @@
 <?php
 namespace Icecave\SemVer;
 
-use InvalidArgumentException;
-use Typhoon\Typhoon;
-
 /**
  * Compares two version instances such that they compare as equal whenever $right is compatible with $left.
  */
@@ -23,6 +20,7 @@ class CompatibilityComparitor extends Comparitor
         if ($result <= 0 && $left->major() === $right->major()) {
             return 0;
         }
+
         return $result;
     }
 }

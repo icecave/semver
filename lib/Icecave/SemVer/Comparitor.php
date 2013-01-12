@@ -1,7 +1,6 @@
 <?php
 namespace Icecave\SemVer;
 
-use InvalidArgumentException;
 use Typhoon\Typhoon;
 
 /**
@@ -35,7 +34,7 @@ class Comparitor
             return $diff;
 
         // Compare the pre-release identifier ...
-        } else if ($diff = $this->compareIdentifierParts($left->preReleaseIdentifierParts(), $right->preReleaseIdentifierParts())) {
+        } elseif ($diff = $this->compareIdentifierParts($left->preReleaseIdentifierParts(), $right->preReleaseIdentifierParts())) {
             return $diff;
 
         // Compare the build identifier ...
@@ -49,7 +48,7 @@ class Comparitor
      *
      * @param array<string> $left
      * @param array<string> $right
-     * @param boolean $invertZeroLengthChecks
+     * @param boolean       $invertZeroLengthChecks
      *
      * @return integer
      */
@@ -100,11 +99,11 @@ class Comparitor
             return intval($left) - intval($right);
 
         // Digits are always "less" than text ...
-        } else if ($leftDigits) {
+        } elseif ($leftDigits) {
             return -1;
 
         // Digits are always "less" than text ...
-        } else if ($rightDigits) {
+        } elseif ($rightDigits) {
             return +1;
         }
 

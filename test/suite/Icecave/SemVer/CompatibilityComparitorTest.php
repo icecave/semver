@@ -35,7 +35,7 @@ class CompatibilityComparitorTest extends PHPUnit_Framework_TestCase
     {
         $left = Version::parse($left);
         $right = Version::parse($right);
-        
+
         if ($isCompatible) {
             $this->assertSame(0, $this->_comparitor->compare($left, $right));
         } else {

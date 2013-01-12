@@ -1,7 +1,7 @@
 <?php
 namespace Icecave\SemVer;
 
-use Typhoon\Typhoon;
+use Icecave\SemVer\TypeCheck\TypeCheck;
 
 /**
  * Compares two Version instances using the rules defined at http://semver.org/ @ 2.0.0-rc.1
@@ -10,7 +10,7 @@ class Comparitor
 {
     public function __construct()
     {
-        $this->typhoon = Typhoon::get(__CLASS__, func_get_args());
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
     }
 
     /**
@@ -54,7 +54,7 @@ class Comparitor
      */
     protected function compareIdentifierParts(array $left, array $right, $invertZeroLengthChecks = false)
     {
-        $this->typhoon->compareIdentifierParts(func_get_args());
+        $this->typeCheck->compareIdentifierParts(func_get_args());
 
         $leftCount = count($left);
         $rightCount = count($right);
@@ -89,7 +89,7 @@ class Comparitor
      */
     protected function compareIdentifierPart($left, $right)
     {
-        $this->typhoon->compareIdentifierPart(func_get_args());
+        $this->typeCheck->compareIdentifierPart(func_get_args());
 
         $leftDigits = ctype_digit($left);
         $rightDigits = ctype_digit($right);
@@ -111,5 +111,5 @@ class Comparitor
         return strcmp($left, $right);
     }
 
-    private $typhoon;
+    private $typeCheck;
 }

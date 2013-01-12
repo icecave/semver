@@ -2,7 +2,7 @@
 namespace Icecave\SemVer;
 
 use InvalidArgumentException;
-use Typhoon\Typhoon;
+use Icecave\SemVer\TypeCheck\TypeCheck;
 
 /**
  * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.1
@@ -18,7 +18,7 @@ class Version
      */
     public function __construct($major = 0, $minor = 0, $patch = 0, $preReleaseIdentifier = null, $buildIdentifier = null)
     {
-        $this->typhoon = Typhoon::get(__CLASS__, func_get_args());
+        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
         $this->setMajor($major);
         $this->setMinor($minor);
@@ -37,7 +37,7 @@ class Version
      */
     public static function parse($version)
     {
-        Typhoon::get(__CLASS__)->parse(func_get_args());
+        TypeCheck::get(__CLASS__)->parse(func_get_args());
 
         $parsedVersion = null;
         if (static::tryParse($version, $parsedVersion)) {
@@ -57,7 +57,7 @@ class Version
      */
     public static function tryParse($version, Version &$parsedVersion = null)
     {
-        Typhoon::get(__CLASS__)->tryParse(func_get_args());
+        TypeCheck::get(__CLASS__)->tryParse(func_get_args());
 
         $matches = array();
         if (!preg_match(static::$versionPattern, $version, $matches)) {
@@ -96,7 +96,7 @@ class Version
      */
     public static function isValid($version)
     {
-        Typhoon::get(__CLASS__)->isValid(func_get_args());
+        TypeCheck::get(__CLASS__)->isValid(func_get_args());
 
         return preg_match(static::$versionPattern, $version) === 1;
     }
@@ -135,7 +135,7 @@ class Version
      */
     public function setMajor($major)
     {
-        $this->typhoon->setMajor(func_get_args());
+        $this->typeCheck->setMajor(func_get_args());
 
         if ($major < 0) {
             throw new InvalidArgumentException('Major version number must be a positive integer.');
@@ -159,7 +159,7 @@ class Version
      */
     public function setMinor($minor)
     {
-        $this->typhoon->setMinor(func_get_args());
+        $this->typeCheck->setMinor(func_get_args());
 
         if ($minor < 0) {
             throw new InvalidArgumentException('Major version number must be a positive integer.');
@@ -183,7 +183,7 @@ class Version
      */
     public function setPatch($patch)
     {
-        $this->typhoon->setPatch(func_get_args());
+        $this->typeCheck->setPatch(func_get_args());
 
         if ($patch < 0) {
             throw new InvalidArgumentException('Major version number must be a positive integer.');
@@ -219,7 +219,7 @@ class Version
      */
     public function setPreReleaseIdentifier($preReleaseIdentifier)
     {
-        $this->typhoon->setPreReleaseIdentifier(func_get_args());
+        $this->typeCheck->setPreReleaseIdentifier(func_get_args());
 
         if (null !== $preReleaseIdentifier && !preg_match(static::$identifierPattern, $preReleaseIdentifier)) {
             throw new InvalidArgumentException('The string "' . $preReleaseIdentifier . '" is not a valid pre-release identifier.');
@@ -255,7 +255,7 @@ class Version
      */
     public function setBuildIdentifier($buildIdentifier)
     {
-        $this->typhoon->setBuildIdentifier(func_get_args());
+        $this->typeCheck->setBuildIdentifier(func_get_args());
 
         if (null !== $buildIdentifier && !preg_match(static::$identifierPattern, $buildIdentifier)) {
             throw new InvalidArgumentException('The string "' . $buildIdentifier . '" is not a valid build identifier.');
@@ -310,7 +310,7 @@ class Version
 
     private static $identifierPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
     private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseIdentifier>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildIdentifier>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
-    private $typhoon;
+    private $typeCheck;
     private $major;
     private $minor;
     private $patch;

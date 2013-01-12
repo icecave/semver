@@ -1,5 +1,5 @@
 {
-    "hash": "41383bc7a5088737795a875386b2ee21",
+    "hash": "9ca6f4ec4bf7a8ae48040e5f8569cb5e",
     "packages": [
 
     ],
@@ -25,7 +25,7 @@
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "2012-08-06 01:24:33",
+            "time": "2012-08-05 18:24:33",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -33,6 +33,7 @@
                     "Eloquent\\Asplode": "src"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -75,7 +76,7 @@
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "2012-08-05 06:40:35",
+            "time": "2012-08-04 23:40:35",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -83,6 +84,7 @@
                     "Eloquent\\Blox": "src"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -124,7 +126,7 @@
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2012-08-05 15:53:24",
+            "time": "2012-08-05 08:53:24",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -132,6 +134,7 @@
                     "Eloquent\\Cosmos": "src"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -155,28 +158,77 @@
             ]
         },
         {
-            "name": "eloquent/typhax",
-            "version": "0.7.0",
+            "name": "eloquent/enumeration",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
-                "url": "git://github.com/eloquent/typhax.git",
-                "reference": "0.6.4"
+                "url": "git://github.com/eloquent/enumeration.git",
+                "reference": "3.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/typhax/zipball/0.6.4",
-                "reference": "0.6.4",
+                "url": "https://github.com/eloquent/enumeration/zipball/3.0.1",
+                "reference": "3.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phake/phake": "1.*"
+            },
+            "time": "2012-08-21 01:21:14",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Eloquent\\Enumeration": "src"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erin Millard",
+                    "email": "ezzatron@gmail.com",
+                    "homepage": "http://ezzatron.com/"
+                }
+            ],
+            "description": "An enumeration implementation for PHP.",
+            "homepage": "https://github.com/eloquent/enumeration",
+            "keywords": [
+                "enum",
+                "enumeration",
+                "set",
+                "class"
+            ]
+        },
+        {
+            "name": "eloquent/typhax",
+            "version": "0.7.1",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/eloquent/typhax.git",
+                "reference": "0.7.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/eloquent/typhax/archive/0.7.1.zip",
+                "reference": "0.7.1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
                 "eloquent/cosmos": ">=1,<2",
-                "icecave/visita": "0.1.*"
+                "icecave/visita": "0.1.*",
+                "ext-mbstring": "*"
             },
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "2012-09-09 03:17:35",
+            "time": "2013-01-11 01:05:28",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -184,6 +236,7 @@
                     "Eloquent\\Typhax": "src"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -208,36 +261,38 @@
         },
         {
             "name": "eloquent/typhoon",
-            "version": "0.4.0",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "git://github.com/eloquent/typhoon.git",
-                "reference": "0.4.0"
+                "reference": "0.6.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/eloquent/typhoon/zipball/0.4.0",
-                "reference": "0.4.0",
+                "url": "https://github.com/eloquent/typhoon/archive/0.6.0.zip",
+                "reference": "0.6.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "eloquent/asplode": "1.*",
-                "eloquent/blox": "1.*",
-                "eloquent/cosmos": "1.*",
-                "eloquent/typhax": ">=0.6",
-                "icecave/isolator": ">=2.1,<3",
-                "icecave/visita": "0.1.*",
-                "symfony/console": "2.*"
+                "eloquent/asplode": ">=1.0,<2.0",
+                "eloquent/blox": ">=1.0,<2.0",
+                "eloquent/cosmos": ">=1.0,<2.0",
+                "eloquent/enumeration": ">=3.0,<4.0",
+                "eloquent/typhax": ">=0.7,<1.0",
+                "icecave/isolator": ">=2.0,<3.0",
+                "icecave/pasta-ast": ">=0.1,<1.0",
+                "icecave/rasta": ">=0.1,<1.0",
+                "icecave/visita": ">=0.1,<1.0",
+                "symfony/console": ">=2.0,<3.0",
+                "symfony/filesystem": ">=2.0,<3.0"
             },
             "require-dev": {
-                "phake/phake": "1.*",
-                "eloquent/liberator": "1.*"
+                "phake/phake": ">=1.0,<2.0",
+                "eloquent/liberator": ">=1.0,<2.0",
+                "ezzatron/phpunit-extensions": ">=1.0,<2.0"
             },
-            "suggest": {
-                "ext-sockets": "*"
-            },
-            "time": "2012-08-22 16:50:32",
+            "time": "2013-01-11 01:17:04",
             "bin": [
                 "bin/typhoon"
             ],
@@ -245,11 +300,11 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-0": {
-                    "Eloquent\\Typhoon": "src",
-                    "Typhoon": "src-deploy",
-                    "Typhoon\\Eloquent\\Typhoon": "src-typhoon"
+                    "Eloquent\\Typhoon\\TypeCheck": "src-typhoon",
+                    "Eloquent\\Typhoon": "src"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -290,7 +345,7 @@
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "2012-08-12 10:37:39",
+            "time": "2012-08-12 03:37:39",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -298,6 +353,7 @@
                     "Icecave\\Isolator": "lib"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -316,6 +372,101 @@
                 "fake",
                 "unit",
                 "phake"
+            ]
+        },
+        {
+            "name": "icecave/pasta-ast",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IcecaveStudios/pasta-ast.git",
+                "reference": "0.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/IcecaveStudios/pasta-ast/archive/0.1.0.zip",
+                "reference": "0.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "eloquent/enumeration": "3.*"
+            },
+            "require-dev": {
+                "phake/phake": "1.*"
+            },
+            "time": "2012-11-28 12:00:39",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Icecave\\Pasta\\AST": "lib"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au"
+                }
+            ],
+            "description": "PHP AST implementation.",
+            "homepage": "https://github.com/IcecaveStudios/pasta-ast",
+            "keywords": [
+                "tree",
+                "parser",
+                "syntax",
+                "abstract",
+                "ast"
+            ]
+        },
+        {
+            "name": "icecave/rasta",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IcecaveStudios/rasta.git",
+                "reference": "0.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/IcecaveStudios/rasta/archive/0.1.0.zip",
+                "reference": "0.1.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "icecave/pasta-ast": ">=0.1,<1.0"
+            },
+            "require-dev": {
+                "phake/phake": ">=1.0,<2.0"
+            },
+            "time": "2012-12-03 10:58:07",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Icecave\\Rasta": "lib"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au"
+                }
+            ],
+            "description": "PHP code generation library.",
+            "homepage": "https://github.com/IcecaveStudios/rasta",
+            "keywords": [
+                "parser",
+                "ast"
             ]
         },
         {
@@ -338,7 +489,7 @@
             "require-dev": {
                 "phake/phake": "1.*"
             },
-            "time": "2012-08-05 06:35:23",
+            "time": "2012-08-04 23:35:23",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -346,6 +497,7 @@
                     "Icecave\\Visita": "lib"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -365,35 +517,31 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.1.2",
+            "version": "v2.1.6",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "v2.1.0-RC2"
+                "reference": "v2.1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/zipball/v2.1.0-RC2",
-                "reference": "v2.1.0-RC2",
+                "url": "https://github.com/symfony/Console/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-08-22 13:48:41",
+            "time": "2012-12-13 17:42:00",
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Symfony\\Component\\Console": ""
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -408,6 +556,49 @@
                 }
             ],
             "description": "Symfony Console Component",
+            "homepage": "http://symfony.com"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v2.1.6",
+            "target-dir": "Symfony/Component/Filesystem",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Filesystem",
+                "reference": "v2.1.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Filesystem/archive/v2.1.6.zip",
+                "reference": "v2.1.6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "2012-12-11 10:40:22",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Filesystem": ""
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com"
         }
     ],

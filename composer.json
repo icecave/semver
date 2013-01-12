@@ -15,12 +15,19 @@
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "eloquent/typhoon": "0.4.*"
+        "eloquent/typhoon": "*"
     },
     "autoload": {
         "psr-0": {
             "Icecave\\SemVer": "lib",
-            "Typhoon": "lib-typhoon"
+            "Icecave\\SemVer\\TypeCheck": "lib-typhoon"
+        }
+    },
+    "extra": {
+        "typhoon": {
+            "output-path": "lib-typhoon",
+            "validator-namespace": "Icecave\\SemVer\\TypeCheck",
+            "use-native-callable": false
         }
     }
 }

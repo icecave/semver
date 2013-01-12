@@ -3,11 +3,11 @@ namespace Icecave\SemVer;
 
 use PHPUnit_Framework_TestCase;
 
-class ComparitorTest extends PHPUnit_Framework_TestCase
+class ComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_comparitor = new Comparitor;
+        $this->_comparator = new Comparator;
     }
 
     /**
@@ -18,8 +18,8 @@ class ComparitorTest extends PHPUnit_Framework_TestCase
         $left = Version::parse($left);
         $right = Version::parse($right);
 
-        $this->assertSame(0, $this->_comparitor->compare($left, $left));
-        $this->assertSame(0, $this->_comparitor->compare($right, $right));
+        $this->assertSame(0, $this->_comparator->compare($left, $left));
+        $this->assertSame(0, $this->_comparator->compare($right, $right));
     }
 
     /**
@@ -29,7 +29,7 @@ class ComparitorTest extends PHPUnit_Framework_TestCase
     {
         $left = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertLessThan(0, $this->_comparitor->compare($left, $right));
+        $this->assertLessThan(0, $this->_comparator->compare($left, $right));
     }
 
     /**
@@ -39,7 +39,7 @@ class ComparitorTest extends PHPUnit_Framework_TestCase
     {
         $left = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertGreaterThan(0, $this->_comparitor->compare($right, $left));
+        $this->assertGreaterThan(0, $this->_comparator->compare($right, $left));
     }
 
     /**
@@ -64,7 +64,7 @@ class ComparitorTest extends PHPUnit_Framework_TestCase
     {
         $left = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertLessThan(0, $this->_comparitor->compare($left, $right));
+        $this->assertLessThan(0, $this->_comparator->compare($left, $right));
     }
 
     /**
@@ -74,7 +74,7 @@ class ComparitorTest extends PHPUnit_Framework_TestCase
     {
         $left = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertGreaterThan(0, $this->_comparitor->compare($right, $left));
+        $this->assertGreaterThan(0, $this->_comparator->compare($right, $left));
     }
 
     /**

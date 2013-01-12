@@ -6,7 +6,7 @@ use Icecave\SemVer\TypeCheck\TypeCheck;
 /**
  * Compares two Version instances using the rules defined at http://semver.org/ @ 2.0.0-rc.1
  */
-class Comparitor
+class Comparator
 {
     public function __construct()
     {

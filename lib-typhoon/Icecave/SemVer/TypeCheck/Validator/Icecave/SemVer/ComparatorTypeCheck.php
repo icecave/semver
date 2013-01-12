@@ -2,7 +2,7 @@
 namespace Icecave\SemVer\TypeCheck\Validator\Icecave\SemVer;
 
 
-class ComparitorTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
+class ComparatorTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
 {
     public function validateConstruct(array $arguments)
     {

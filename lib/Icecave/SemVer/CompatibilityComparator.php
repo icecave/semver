@@ -6,7 +6,7 @@ use Icecave\SemVer\TypeCheck\TypeCheck;
 /**
  * Compares two version instances such that they compare as equal whenever $right is compatible with $left.
  */
-class CompatibilityComparitor extends Comparitor
+class CompatibilityComparator extends Comparator
 {
     public function __construct()
     {

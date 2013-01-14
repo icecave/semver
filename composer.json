@@ -15,7 +15,8 @@
         "php": ">=5.3.0"
     },
     "require-dev": {
-        "eloquent/typhoon": "*"
+        "icecave/testing": "1.*",
+        "eloquent/typhoon": "0.6.*"
     },
     "autoload": {
         "psr-0": {

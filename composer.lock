@@ -317,6 +317,67 @@
             ]
         },
         {
+            "name": "icecave/collections",
+            "version": "0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IcecaveStudios/collections.git",
+                "reference": "0.5.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/IcecaveStudios/collections/archive/0.5.0.zip",
+                "reference": "0.5.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "icecave/repr": "1.*"
+            },
+            "require-dev": {
+                "icecave/testing": "1.*",
+                "eloquent/liberator": "1.*",
+                "eloquent/typhoon": "0.6.*"
+            },
+            "time": "2013-01-14 04:29:20",
+            "type": "library",
+            "extra": {
+                "typhoon": {
+                    "output-path": "lib-typhoon",
+                    "validator-namespace": "Icecave\\Collections\\TypeCheck",
+                    "use-native-callable": false
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Icecave\\Collections": "lib",
+                    "Icecave\\Collections\\TypeCheck": "lib-typhoon"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au"
+                }
+            ],
+            "description": "PHP collections without leaky abstractions.",
+            "homepage": "https://github.com/IcecaveStudios/collections",
+            "keywords": [
+                "container",
+                "queue",
+                "array",
+                "map",
+                "hash",
+                "sequence",
+                "collection",
+                "stack"
+            ]
+        },
+        {
             "name": "icecave/isolator",
             "version": "2.1.1",
             "source": {
@@ -414,26 +475,27 @@
         },
         {
             "name": "icecave/rasta",
-            "version": "0.1.0",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/IcecaveStudios/rasta.git",
-                "reference": "0.1.0"
+                "reference": "0.1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/IcecaveStudios/rasta/archive/0.1.0.zip",
-                "reference": "0.1.0",
+                "url": "https://github.com/IcecaveStudios/rasta/archive/0.1.4.zip",
+                "reference": "0.1.4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "icecave/pasta-ast": ">=0.1,<1.0"
+                "icecave/pasta-ast": "0.1.*",
+                "icecave/collections": "*"
             },
             "require-dev": {
-                "phake/phake": ">=1.0,<2.0"
+                "icecave/testing": "1.*"
             },
-            "time": "2012-12-03 10:58:07",
+            "time": "2013-01-14 14:06:52",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -458,17 +520,62 @@
             ]
         },
         {
-            "name": "icecave/testing",
-            "version": "1.0.6",
+            "name": "icecave/repr",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/IcecaveStudios/testing.git",
-                "reference": "1.0.6"
+                "url": "https://github.com/IcecaveStudios/repr.git",
+                "reference": "1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/IcecaveStudios/testing/archive/1.0.6.zip",
-                "reference": "1.0.6",
+                "url": "https://github.com/IcecaveStudios/repr/archive/1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phake/phake": "1.*"
+            },
+            "time": "2013-01-11 00:04:43",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Icecave\\Repr": "lib"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Harris",
+                    "email": "james.harris@icecave.com.au"
+                }
+            ],
+            "description": "Human readable string representations of everything.",
+            "homepage": "https://github.com/IcecaveStudios/repr",
+            "keywords": [
+                "string",
+                "representation",
+                "repr"
+            ]
+        },
+        {
+            "name": "icecave/testing",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IcecaveStudios/testing.git",
+                "reference": "1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/IcecaveStudios/testing/archive/1.1.2.zip",
+                "reference": "1.1.2",
                 "shasum": ""
             },
             "require": {
@@ -478,11 +585,12 @@
                 "eloquent/asplode": "Use the asplode error handler instead of PHPUnit's internal error handler.",
                 "eloquent/liberator": "Use liberator for circumventing PHP access modifier restrictions inside tests."
             },
-            "time": "2013-01-14 05:53:31",
+            "time": "2013-01-17 03:42:55",
             "bin": [
                 "bin/phpunit",
                 "bin/phpunit-coverage",
-                "bin/update-dotfiles"
+                "bin/travis-init",
+                "bin/travis-build"
             ],
             "type": "library",
             "notification-url": "http://packagist.org/downloads/",

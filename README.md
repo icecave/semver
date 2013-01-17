@@ -1,4 +1,4 @@
-# Icecave SemVer
+# SemVer
 
 [![Build Status](https://secure.travis-ci.org/IcecaveStudios/semver.png)](http://travis-ci.org/IcecaveStudios/semver)
 [![Test Coverage](http://icecavestudios.github.com/semver/coverage-report/coverage.png)](http://icecavestudios.github.com/semver/coverage-report/index.html)

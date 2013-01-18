@@ -7,7 +7,7 @@ Icecave **SemVer** is a small PHP library for parsing and comparing version numb
 
 ## Installation
 
-**SemVer** requires PHP 5.3.
+**SemVer** requires PHP 5.3.3 or newer.
 
 ### With [Composer](http://getcomposer.org/)
 

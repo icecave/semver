@@ -15,7 +15,8 @@
         "php": ">=5.3.3"
     },
     "require-dev": {
-        "icecave/testing": "1.*",
+        "icecave/testing": "2.*",
+        "icecave/woodhouse": "0.*",
         "eloquent/typhoon": "0.6.*"
     },
     "autoload": {

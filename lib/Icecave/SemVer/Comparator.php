@@ -21,6 +21,8 @@ class Comparator
      */
     public function compare(Version $left, Version $right)
     {
+        $this->typeCheck->compare(func_get_args());
+
         // Compare the major version ...
         if ($diff = $left->major() - $right->major()) {
             return $diff;

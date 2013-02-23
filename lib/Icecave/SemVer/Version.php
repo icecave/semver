@@ -113,6 +113,8 @@ class Version
      */
     public static function adapt($version)
     {
+        TypeCheck::get(__CLASS__)->adapt(func_get_args());
+
         if ($version instanceof static) {
             return $version;
         }
@@ -125,6 +127,8 @@ class Version
      */
     public function major()
     {
+        $this->typeCheck->major(func_get_args());
+
         return $this->major;
     }
 
@@ -149,6 +153,8 @@ class Version
      */
     public function minor()
     {
+        $this->typeCheck->minor(func_get_args());
+
         return $this->minor;
     }
 
@@ -173,6 +179,8 @@ class Version
      */
     public function patch()
     {
+        $this->typeCheck->patch(func_get_args());
+
         return $this->patch;
     }
 
@@ -197,6 +205,8 @@ class Version
      */
     public function preReleaseIdentifier()
     {
+        $this->typeCheck->preReleaseIdentifier(func_get_args());
+
         return $this->preReleaseIdentifier;
     }
 
@@ -205,6 +215,8 @@ class Version
      */
     public function preReleaseIdentifierParts()
     {
+        $this->typeCheck->preReleaseIdentifierParts(func_get_args());
+
         if (null === $this->preReleaseIdentifier) {
             return array();
         }
@@ -233,6 +245,8 @@ class Version
      */
     public function buildIdentifier()
     {
+        $this->typeCheck->buildIdentifier(func_get_args());
+
         return $this->buildIdentifier;
     }
 
@@ -241,6 +255,8 @@ class Version
      */
     public function buildIdentifierParts()
     {
+        $this->typeCheck->buildIdentifierParts(func_get_args());
+
         if (null === $this->buildIdentifier) {
             return array();
         }
@@ -269,6 +285,8 @@ class Version
      */
     public function isStable()
     {
+        $this->typeCheck->isStable(func_get_args());
+
         return $this->major() > 0
             && null === $this->preReleaseIdentifier();
     }
@@ -278,6 +296,8 @@ class Version
      */
     public function string()
     {
+        $this->typeCheck->string(func_get_args());
+
         if (null !== $this->preReleaseIdentifier) {
             $preReleaseIdentifierString = '-' . $this->preReleaseIdentifier;
         } else {

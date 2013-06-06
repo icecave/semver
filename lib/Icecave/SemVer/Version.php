@@ -3,11 +3,14 @@ namespace Icecave\SemVer;
 
 use InvalidArgumentException;
 use Icecave\SemVer\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\Exception\NotComparableException;
 
 /**
  * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.2
  */
-class Version
+class Version extends AbstractComparable implements RestrictedComparableInterface
 {
     /**
      * @param integer     $major             The major version number.
@@ -328,6 +331,58 @@ class Version
         return $this->string();
     }
 
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed           $value            The value to compare.
+     * @param Comparator|null $semverComparator The semantic version comparator to use for comparison, or null to use the default.
+     *
+     * @return integer                          The result of the comparison.
+     * @throws Exception\NotComparableException Indicates that the implementation does not know how to compare $this to $value.
+     */
+    public function compare($value, Comparator $semverComparator = null)
+    {
+        $this->typeCheck->compare(func_get_args());
+
+        if (!$this->canCompare($value)) {
+            throw new NotComparableException($this, $value);
+        }
+
+        if (null === $semverComparator) {
+            if (null === self::$defaultComparator) {
+                self::$defaultComparator = new Comparator;
+            }
+            $semverComparator = self::$defaultComparator;
+        }
+
+        return $semverComparator->compare($this, $value);
+
+    }
+
+    /**
+     * Check if $this is able to be compared to another value.
+     *
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
+     *
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
+     */
+    public function canCompare($value)
+    {
+        return $value instanceof Version;
+    }
+
+    private static $defaultComparator;
     private static $identifierPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
     private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
     private $typeCheck;

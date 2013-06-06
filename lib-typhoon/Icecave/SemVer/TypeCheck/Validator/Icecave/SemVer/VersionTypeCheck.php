@@ -307,4 +307,24 @@ class VersionTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
         }
     }
 
+    public function compare(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('value', 0, 'mixed');
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
+        }
+    }
+
+    public function canCompare(array $arguments)
+    {
+        $argumentCount = \count($arguments);
+        if ($argumentCount < 1) {
+            throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('value', 0, 'mixed');
+        } elseif ($argumentCount > 1) {
+            throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
+        }
+    }
+
 }

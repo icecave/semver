@@ -261,4 +261,18 @@ class VersionTest extends PHPUnit_Framework_TestCase
             'invalid build'                     => array('1.2.3+foo_bar'),
         );
     }
+
+    public function testCompare()
+    {
+        $version1 = Version::parse('1.0.0');
+        $version2 = Version::parse('2.0.0');
+
+        $this->assertLessThan(0, $version1->compare($version2));
+    }
+
+    public function testCompareFailure()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        Version::parse('1.0.0')->compare(123);
+    }
 }

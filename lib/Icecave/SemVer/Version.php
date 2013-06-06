@@ -5,7 +5,7 @@ use InvalidArgumentException;
 use Icecave\SemVer\TypeCheck\TypeCheck;
 
 /**
- * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.1
+ * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.2
  */
 class Version
 {

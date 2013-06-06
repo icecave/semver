@@ -4,7 +4,7 @@ namespace Icecave\SemVer;
 use Icecave\SemVer\TypeCheck\TypeCheck;
 
 /**
- * Compares two Version instances using the rules defined at http://semver.org/ @ 2.0.0-rc.1
+ * Compares two Version instances using the rules defined at http://semver.org/ @ 2.0.0-rc.2
  */
 class Comparator
 {

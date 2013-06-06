@@ -31,8 +31,8 @@ class ComparatorTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
                 throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('left', 0, 'array<string>');
             }
             throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('right', 1, 'array<string>');
-        } elseif ($argumentCount > 3) {
-            throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(3, $arguments[3]);
+        } elseif ($argumentCount > 2) {
+            throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(2, $arguments[2]);
         }
         $value = $arguments[0];
         $check = function ($value) {
@@ -73,17 +73,6 @@ class ComparatorTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
                 $arguments[1],
                 'array<string>'
             );
-        }
-        if ($argumentCount > 2) {
-            $value = $arguments[2];
-            if (!\is_bool($value)) {
-                throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'invertZeroLengthChecks',
-                    2,
-                    $arguments[2],
-                    'boolean'
-                );
-            }
         }
     }
 

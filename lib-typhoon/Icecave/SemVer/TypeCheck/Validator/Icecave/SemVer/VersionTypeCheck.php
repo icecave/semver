@@ -46,7 +46,7 @@ class VersionTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
             $value = $arguments[3];
             if (!(\is_string($value) || $value === null)) {
                 throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'preReleaseIdentifier',
+                    'preReleaseVersion',
                     3,
                     $arguments[3],
                     'string|null'
@@ -57,7 +57,7 @@ class VersionTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
             $value = $arguments[4];
             if (!(\is_string($value) || $value === null)) {
                 throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentValueException(
-                    'buildIdentifier',
+                    'buildMetaData',
                     4,
                     $arguments[4],
                     'string|null'
@@ -220,32 +220,32 @@ class VersionTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
         }
     }
 
-    public function preReleaseIdentifier(array $arguments)
+    public function preReleaseVersion(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function preReleaseIdentifierParts(array $arguments)
+    public function preReleaseVersionParts(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function setPreReleaseIdentifier(array $arguments)
+    public function setPreReleaseVersion(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('preReleaseIdentifier', 0, 'string|null');
+            throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('preReleaseVersion', 0, 'string|null');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
         $value = $arguments[0];
         if (!(\is_string($value) || $value === null)) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentValueException(
-                'preReleaseIdentifier',
+                'preReleaseVersion',
                 0,
                 $arguments[0],
                 'string|null'
@@ -253,32 +253,32 @@ class VersionTypeCheck extends \Icecave\SemVer\TypeCheck\AbstractValidator
         }
     }
 
-    public function buildIdentifier(array $arguments)
+    public function buildMetaData(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function buildIdentifierParts(array $arguments)
+    public function buildMetaDataParts(array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(0, $arguments[0]);
         }
     }
 
-    public function setBuildIdentifier(array $arguments)
+    public function setBuildMetaData(array $arguments)
     {
         $argumentCount = \count($arguments);
         if ($argumentCount < 1) {
-            throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('buildIdentifier', 0, 'string|null');
+            throw new \Icecave\SemVer\TypeCheck\Exception\MissingArgumentException('buildMetaData', 0, 'string|null');
         } elseif ($argumentCount > 1) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentException(1, $arguments[1]);
         }
         $value = $arguments[0];
         if (!(\is_string($value) || $value === null)) {
             throw new \Icecave\SemVer\TypeCheck\Exception\UnexpectedArgumentValueException(
-                'buildIdentifier',
+                'buildMetaData',
                 0,
                 $arguments[0],
                 'string|null'

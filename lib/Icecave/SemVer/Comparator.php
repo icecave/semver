@@ -35,26 +35,25 @@ class Comparator
         } elseif ($diff = $left->patch() - $right->patch()) {
             return $diff;
 
-        // Compare the pre-release identifier ...
-        } elseif ($diff = $this->compareIdentifierParts($left->preReleaseIdentifierParts(), $right->preReleaseIdentifierParts())) {
+        // Compare the pre-release version ...
+        } elseif ($diff = $this->compareIdentifierParts($left->preReleaseVersionParts(), $right->preReleaseVersionParts())) {
             return $diff;
 
-        // Compare the build identifier ...
+        // Do not compare the build meta-data ...
         } else {
-            return $this->compareIdentifierParts($left->buildIdentifierParts(), $right->buildIdentifierParts(), true);
+            return 0;
         }
     }
 
     /**
-     * Compare the dot-separted parts of a pre-release or build identifier.
+     * Compare the dot-separted parts of a pre-release or build meta-data.
      *
      * @param array<string> $left
      * @param array<string> $right
-     * @param boolean       $invertZeroLengthChecks
      *
      * @return integer
      */
-    protected function compareIdentifierParts(array $left, array $right, $invertZeroLengthChecks = false)
+    protected function compareIdentifierParts(array $left, array $right)
     {
         $this->typeCheck->compareIdentifierParts(func_get_args());
 
@@ -63,13 +62,7 @@ class Comparator
 
         // If either of the sides is empty we can bail early ...
         if (0 === $leftCount || 0 === $rightCount) {
-
-            // The presence or absence of an identifier is treated differently for pre-release and build identifiers ...
-            if ($invertZeroLengthChecks) {
-                return $leftCount - $rightCount;
-            } else {
-                return $rightCount - $leftCount;
-            }
+            return $rightCount - $leftCount;
         }
 
         // Compare the individual parts ...

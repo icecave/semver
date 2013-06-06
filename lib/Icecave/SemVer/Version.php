@@ -10,21 +10,21 @@ use Icecave\SemVer\TypeCheck\TypeCheck;
 class Version
 {
     /**
-     * @param integer     $major                The major version number.
-     * @param integer     $minor                The minor version number.
-     * @param integer     $patch                The patch version number.
-     * @param string|null $preReleaseIdentifier The pre-release identifier, not including the leading hyphen.
-     * @param string|null $buildIdentifier      The build identifier, not including the leading plus-sign.
+     * @param integer     $major             The major version number.
+     * @param integer     $minor             The minor version number.
+     * @param integer     $patch             The patch version number.
+     * @param string|null $preReleaseVersion The pre-release version, not including the leading hyphen.
+     * @param string|null $buildMetaData     The build meta-data, not including the leading plus-sign.
      */
-    public function __construct($major = 0, $minor = 0, $patch = 0, $preReleaseIdentifier = null, $buildIdentifier = null)
+    public function __construct($major = 0, $minor = 0, $patch = 0, $preReleaseVersion = null, $buildMetaData = null)
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
         $this->setMajor($major);
         $this->setMinor($minor);
         $this->setPatch($patch);
-        $this->setPreReleaseIdentifier($preReleaseIdentifier);
-        $this->setBuildIdentifier($buildIdentifier);
+        $this->setPreReleaseVersion($preReleaseVersion);
+        $this->setBuildMetaData($buildMetaData);
     }
 
     /**
@@ -64,24 +64,24 @@ class Version
             return false;
         }
 
-        if (array_key_exists('preReleaseIdentifier', $matches) && $matches['preReleaseIdentifier'] !== '') {
-            $preReleaseIdentifier = $matches['preReleaseIdentifier'];
+        if (array_key_exists('preReleaseVersion', $matches) && $matches['preReleaseVersion'] !== '') {
+            $preReleaseVersion = $matches['preReleaseVersion'];
         } else {
-            $preReleaseIdentifier = null;
+            $preReleaseVersion = null;
         }
 
-        if (array_key_exists('buildIdentifier', $matches) && $matches['buildIdentifier'] !== '') {
-            $buildIdentifier = $matches['buildIdentifier'];
+        if (array_key_exists('buildMetaData', $matches) && $matches['buildMetaData'] !== '') {
+            $buildMetaData = $matches['buildMetaData'];
         } else {
-            $buildIdentifier = null;
+            $buildMetaData = null;
         }
 
         $parsedVersion = new static(
             intval($matches['major']),
             intval($matches['minor']),
             intval($matches['patch']),
-            $preReleaseIdentifier,
-            $buildIdentifier
+            $preReleaseVersion,
+            $buildMetaData
         );
 
         return true;
@@ -201,83 +201,83 @@ class Version
     }
 
     /**
-     * @return string|null The pre-release identifier.
+     * @return string|null The pre-release version.
      */
-    public function preReleaseIdentifier()
+    public function preReleaseVersion()
     {
-        $this->typeCheck->preReleaseIdentifier(func_get_args());
+        $this->typeCheck->preReleaseVersion(func_get_args());
 
-        return $this->preReleaseIdentifier;
+        return $this->preReleaseVersion;
     }
 
     /**
-     * @return array An array containing the dot-separated components of the pre-release identifier.
+     * @return array An array containing the dot-separated components of the pre-release version.
      */
-    public function preReleaseIdentifierParts()
+    public function preReleaseVersionParts()
     {
-        $this->typeCheck->preReleaseIdentifierParts(func_get_args());
+        $this->typeCheck->preReleaseVersionParts(func_get_args());
 
-        if (null === $this->preReleaseIdentifier) {
+        if (null === $this->preReleaseVersion) {
             return array();
         }
 
-        return explode('.', $this->preReleaseIdentifier);
+        return explode('.', $this->preReleaseVersion);
     }
 
     /**
-     * Set the pre-release identifier.
+     * Set the pre-release version.
      *
-     * @param string|null $preReleaseIdentifier The pre-release identifier, not including the leading hyphen.
+     * @param string|null $preReleaseVersion The pre-release version, not including the leading hyphen.
      */
-    public function setPreReleaseIdentifier($preReleaseIdentifier)
+    public function setPreReleaseVersion($preReleaseVersion)
     {
-        $this->typeCheck->setPreReleaseIdentifier(func_get_args());
+        $this->typeCheck->setPreReleaseVersion(func_get_args());
 
-        if (null !== $preReleaseIdentifier && !preg_match(static::$identifierPattern, $preReleaseIdentifier)) {
-            throw new InvalidArgumentException('The string "' . $preReleaseIdentifier . '" is not a valid pre-release identifier.');
+        if (null !== $preReleaseVersion && !preg_match(static::$identifierPattern, $preReleaseVersion)) {
+            throw new InvalidArgumentException('The string "' . $preReleaseVersion . '" is not a valid pre-release version.');
         }
 
-        $this->preReleaseIdentifier = $preReleaseIdentifier;
+        $this->preReleaseVersion = $preReleaseVersion;
     }
 
     /**
-     * @return string|null The build identifier.
+     * @return string|null The build meta-data.
      */
-    public function buildIdentifier()
+    public function buildMetaData()
     {
-        $this->typeCheck->buildIdentifier(func_get_args());
+        $this->typeCheck->buildMetaData(func_get_args());
 
-        return $this->buildIdentifier;
+        return $this->buildMetaData;
     }
 
     /**
-     * @return array An array containing the dot-separated components of the build identifier.
+     * @return array An array containing the dot-separated components of the build meta-data.
      */
-    public function buildIdentifierParts()
+    public function buildMetaDataParts()
     {
-        $this->typeCheck->buildIdentifierParts(func_get_args());
+        $this->typeCheck->buildMetaDataParts(func_get_args());
 
-        if (null === $this->buildIdentifier) {
+        if (null === $this->buildMetaData) {
             return array();
         }
 
-        return explode('.', $this->buildIdentifier);
+        return explode('.', $this->buildMetaData);
     }
 
     /**
-     * Set the build identifier.
+     * Set the build meta-data.
      *
-     * @param string|null $buildIdentifier The build identifier, not including the leading plus-sign.
+     * @param string|null $buildMetaData The build meta-data, not including the leading plus-sign.
      */
-    public function setBuildIdentifier($buildIdentifier)
+    public function setBuildMetaData($buildMetaData)
     {
-        $this->typeCheck->setBuildIdentifier(func_get_args());
+        $this->typeCheck->setBuildMetaData(func_get_args());
 
-        if (null !== $buildIdentifier && !preg_match(static::$identifierPattern, $buildIdentifier)) {
-            throw new InvalidArgumentException('The string "' . $buildIdentifier . '" is not a valid build identifier.');
+        if (null !== $buildMetaData && !preg_match(static::$identifierPattern, $buildMetaData)) {
+            throw new InvalidArgumentException('The string "' . $buildMetaData . '" is not a valid build meta-data.');
         }
 
-        $this->buildIdentifier = $buildIdentifier;
+        $this->buildMetaData = $buildMetaData;
     }
 
     /**
@@ -288,7 +288,7 @@ class Version
         $this->typeCheck->isStable(func_get_args());
 
         return $this->major() > 0
-            && null === $this->preReleaseIdentifier();
+            && null === $this->preReleaseVersion();
     }
 
     /**
@@ -298,16 +298,16 @@ class Version
     {
         $this->typeCheck->string(func_get_args());
 
-        if (null !== $this->preReleaseIdentifier) {
-            $preReleaseIdentifierString = '-' . $this->preReleaseIdentifier;
+        if (null !== $this->preReleaseVersion) {
+            $preReleaseVersionString = '-' . $this->preReleaseVersion;
         } else {
-            $preReleaseIdentifierString = '';
+            $preReleaseVersionString = '';
         }
 
-        if (null !== $this->buildIdentifier) {
-            $buildIdentifierString = '+' . $this->buildIdentifier;
+        if (null !== $this->buildMetaData) {
+            $buildMetaDataString = '+' . $this->buildMetaData;
         } else {
-            $buildIdentifierString = '';
+            $buildMetaDataString = '';
         }
 
         return sprintf(
@@ -315,8 +315,8 @@ class Version
             $this->major(),
             $this->minor(),
             $this->patch(),
-            $preReleaseIdentifierString,
-            $buildIdentifierString
+            $preReleaseVersionString,
+            $buildMetaDataString
         );
     }
 
@@ -329,11 +329,11 @@ class Version
     }
 
     private static $identifierPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
-    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseIdentifier>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildIdentifier>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
+    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
     private $typeCheck;
     private $major;
     private $minor;
     private $patch;
-    private $preReleaseIdentifier;
-    private $buildIdentifier;
+    private $preReleaseVersion;
+    private $buildMetaData;
 }

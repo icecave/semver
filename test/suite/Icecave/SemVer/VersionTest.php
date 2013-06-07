@@ -7,7 +7,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_version = new Version(1, 2, 3, 'preReleaseIdentifier', 'buildIdentifier');
+        $this->_version = new Version(1, 2, 3, 'preReleaseVersion', 'buildMetaData');
     }
 
     public function testDefaults()
@@ -16,8 +16,8 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $this->assertSame(0, $version->major());
         $this->assertSame(0, $version->minor());
         $this->assertSame(0, $version->patch());
-        $this->assertNull($version->preReleaseIdentifier());
-        $this->assertNull($version->buildIdentifier());
+        $this->assertNull($version->preReleaseVersion());
+        $this->assertNull($version->buildMetaData());
     }
 
     public function testMajor()
@@ -77,72 +77,72 @@ class VersionTest extends PHPUnit_Framework_TestCase
         $this->assertSame(100, $this->_version->patch());
     }
 
-    public function testPreReleaseIdentifier()
+    public function testPreReleaseVersion()
     {
-        $this->assertSame('preReleaseIdentifier', $this->_version->preReleaseIdentifier());
+        $this->assertSame('preReleaseVersion', $this->_version->preReleaseVersion());
     }
 
-    public function testSetPreReleaseIdentifier()
+    public function testSetPreReleaseVersion()
     {
-        $this->_version->setPreReleaseIdentifier('foo');
-        $this->assertSame('foo', $this->_version->preReleaseIdentifier());
+        $this->_version->setPreReleaseVersion('foo');
+        $this->assertSame('foo', $this->_version->preReleaseVersion());
     }
 
-    public function testPreReleaseIdentifierParts()
+    public function testPreReleaseVersionParts()
     {
-        $this->_version->setPreReleaseIdentifier(null);
-        $this->assertSame(array(), $this->_version->preReleaseIdentifierParts());
+        $this->_version->setPreReleaseVersion(null);
+        $this->assertSame(array(), $this->_version->preReleaseVersionParts());
 
-        $this->_version->setPreReleaseIdentifier('foo');
-        $this->assertSame(array('foo'), $this->_version->preReleaseIdentifierParts());
+        $this->_version->setPreReleaseVersion('foo');
+        $this->assertSame(array('foo'), $this->_version->preReleaseVersionParts());
 
-        $this->_version->setPreReleaseIdentifier('foo.bar');
-        $this->assertSame(array('foo', 'bar'), $this->_version->preReleaseIdentifierParts());
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetPreReleaseIdentifierFailure()
-    {
-        $this->_version->setPreReleaseIdentifier('foo_bar');
-    }
-
-    public function testBuildIdentifier()
-    {
-        $this->assertSame('buildIdentifier', $this->_version->buildIdentifier());
-    }
-
-    public function testBuildIdentifierParts()
-    {
-        $this->_version->setBuildIdentifier(null);
-        $this->assertSame(array(), $this->_version->buildIdentifierParts());
-
-        $this->_version->setBuildIdentifier('foo');
-        $this->assertSame(array('foo'), $this->_version->buildIdentifierParts());
-
-        $this->_version->setBuildIdentifier('foo.bar');
-        $this->assertSame(array('foo', 'bar'), $this->_version->buildIdentifierParts());
-    }
-
-    public function testSetBuildIdentifier()
-    {
-        $this->_version->setBuildIdentifier('foo');
-        $this->assertSame('foo', $this->_version->buildIdentifier());
+        $this->_version->setPreReleaseVersion('foo.bar');
+        $this->assertSame(array('foo', 'bar'), $this->_version->preReleaseVersionParts());
     }
 
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testSetBuildIdentifierFailure()
+    public function testSetPreReleaseVersionFailure()
     {
-        $this->_version->setBuildIdentifier('foo_bar');
+        $this->_version->setPreReleaseVersion('foo_bar');
+    }
+
+    public function testBuildMetaData()
+    {
+        $this->assertSame('buildMetaData', $this->_version->buildMetaData());
+    }
+
+    public function testBuildMetaDataParts()
+    {
+        $this->_version->setBuildMetaData(null);
+        $this->assertSame(array(), $this->_version->buildMetaDataParts());
+
+        $this->_version->setBuildMetaData('foo');
+        $this->assertSame(array('foo'), $this->_version->buildMetaDataParts());
+
+        $this->_version->setBuildMetaData('foo.bar');
+        $this->assertSame(array('foo', 'bar'), $this->_version->buildMetaDataParts());
+    }
+
+    public function testSetBuildMetaData()
+    {
+        $this->_version->setBuildMetaData('foo');
+        $this->assertSame('foo', $this->_version->buildMetaData());
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testSetBuildMetaDataFailure()
+    {
+        $this->_version->setBuildMetaData('foo_bar');
     }
 
     public function testString()
     {
-        $this->assertSame('1.2.3-preReleaseIdentifier+buildIdentifier', $this->_version->string());
-        $this->assertSame('1.2.3-preReleaseIdentifier+buildIdentifier', strval($this->_version));
+        $this->assertSame('1.2.3-preReleaseVersion+buildMetaData', $this->_version->string());
+        $this->assertSame('1.2.3-preReleaseVersion+buildMetaData', strval($this->_version));
     }
 
     /**
@@ -260,5 +260,19 @@ class VersionTest extends PHPUnit_Framework_TestCase
             'invalid pre-release'               => array('1.2.3-foo_bar'),
             'invalid build'                     => array('1.2.3+foo_bar'),
         );
+    }
+
+    public function testCompare()
+    {
+        $version1 = Version::parse('1.0.0');
+        $version2 = Version::parse('2.0.0');
+
+        $this->assertLessThan(0, $version1->compare($version2));
+    }
+
+    public function testCompareFailure()
+    {
+        $this->setExpectedException('Icecave\Parity\Exception\NotComparableException');
+        Version::parse('1.0.0')->compare(123);
     }
 }

@@ -3,28 +3,31 @@ namespace Icecave\SemVer;
 
 use InvalidArgumentException;
 use Icecave\SemVer\TypeCheck\TypeCheck;
+use Icecave\Parity\AbstractComparable;
+use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\Exception\NotComparableException;
 
 /**
- * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.1
+ * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.2
  */
-class Version
+class Version extends AbstractComparable implements RestrictedComparableInterface
 {
     /**
-     * @param integer     $major                The major version number.
-     * @param integer     $minor                The minor version number.
-     * @param integer     $patch                The patch version number.
-     * @param string|null $preReleaseIdentifier The pre-release identifier, not including the leading hyphen.
-     * @param string|null $buildIdentifier      The build identifier, not including the leading plus-sign.
+     * @param integer     $major             The major version number.
+     * @param integer     $minor             The minor version number.
+     * @param integer     $patch             The patch version number.
+     * @param string|null $preReleaseVersion The pre-release version, not including the leading hyphen.
+     * @param string|null $buildMetaData     The build meta-data, not including the leading plus-sign.
      */
-    public function __construct($major = 0, $minor = 0, $patch = 0, $preReleaseIdentifier = null, $buildIdentifier = null)
+    public function __construct($major = 0, $minor = 0, $patch = 0, $preReleaseVersion = null, $buildMetaData = null)
     {
         $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
 
         $this->setMajor($major);
         $this->setMinor($minor);
         $this->setPatch($patch);
-        $this->setPreReleaseIdentifier($preReleaseIdentifier);
-        $this->setBuildIdentifier($buildIdentifier);
+        $this->setPreReleaseVersion($preReleaseVersion);
+        $this->setBuildMetaData($buildMetaData);
     }
 
     /**
@@ -64,24 +67,24 @@ class Version
             return false;
         }
 
-        if (array_key_exists('preReleaseIdentifier', $matches) && $matches['preReleaseIdentifier'] !== '') {
-            $preReleaseIdentifier = $matches['preReleaseIdentifier'];
+        if (array_key_exists('preReleaseVersion', $matches) && $matches['preReleaseVersion'] !== '') {
+            $preReleaseVersion = $matches['preReleaseVersion'];
         } else {
-            $preReleaseIdentifier = null;
+            $preReleaseVersion = null;
         }
 
-        if (array_key_exists('buildIdentifier', $matches) && $matches['buildIdentifier'] !== '') {
-            $buildIdentifier = $matches['buildIdentifier'];
+        if (array_key_exists('buildMetaData', $matches) && $matches['buildMetaData'] !== '') {
+            $buildMetaData = $matches['buildMetaData'];
         } else {
-            $buildIdentifier = null;
+            $buildMetaData = null;
         }
 
         $parsedVersion = new static(
             intval($matches['major']),
             intval($matches['minor']),
             intval($matches['patch']),
-            $preReleaseIdentifier,
-            $buildIdentifier
+            $preReleaseVersion,
+            $buildMetaData
         );
 
         return true;
@@ -113,6 +116,8 @@ class Version
      */
     public static function adapt($version)
     {
+        TypeCheck::get(__CLASS__)->adapt(func_get_args());
+
         if ($version instanceof static) {
             return $version;
         }
@@ -125,6 +130,8 @@ class Version
      */
     public function major()
     {
+        $this->typeCheck->major(func_get_args());
+
         return $this->major;
     }
 
@@ -149,6 +156,8 @@ class Version
      */
     public function minor()
     {
+        $this->typeCheck->minor(func_get_args());
+
         return $this->minor;
     }
 
@@ -173,6 +182,8 @@ class Version
      */
     public function patch()
     {
+        $this->typeCheck->patch(func_get_args());
+
         return $this->patch;
     }
 
@@ -193,75 +204,83 @@ class Version
     }
 
     /**
-     * @return string|null The pre-release identifier.
+     * @return string|null The pre-release version.
      */
-    public function preReleaseIdentifier()
+    public function preReleaseVersion()
     {
-        return $this->preReleaseIdentifier;
+        $this->typeCheck->preReleaseVersion(func_get_args());
+
+        return $this->preReleaseVersion;
     }
 
     /**
-     * @return array An array containing the dot-separated components of the pre-release identifier.
+     * @return array An array containing the dot-separated components of the pre-release version.
      */
-    public function preReleaseIdentifierParts()
+    public function preReleaseVersionParts()
     {
-        if (null === $this->preReleaseIdentifier) {
+        $this->typeCheck->preReleaseVersionParts(func_get_args());
+
+        if (null === $this->preReleaseVersion) {
             return array();
         }
 
-        return explode('.', $this->preReleaseIdentifier);
+        return explode('.', $this->preReleaseVersion);
     }
 
     /**
-     * Set the pre-release identifier.
+     * Set the pre-release version.
      *
-     * @param string|null $preReleaseIdentifier The pre-release identifier, not including the leading hyphen.
+     * @param string|null $preReleaseVersion The pre-release version, not including the leading hyphen.
      */
-    public function setPreReleaseIdentifier($preReleaseIdentifier)
+    public function setPreReleaseVersion($preReleaseVersion)
     {
-        $this->typeCheck->setPreReleaseIdentifier(func_get_args());
+        $this->typeCheck->setPreReleaseVersion(func_get_args());
 
-        if (null !== $preReleaseIdentifier && !preg_match(static::$identifierPattern, $preReleaseIdentifier)) {
-            throw new InvalidArgumentException('The string "' . $preReleaseIdentifier . '" is not a valid pre-release identifier.');
+        if (null !== $preReleaseVersion && !preg_match(static::$identifierPattern, $preReleaseVersion)) {
+            throw new InvalidArgumentException('The string "' . $preReleaseVersion . '" is not a valid pre-release version.');
         }
 
-        $this->preReleaseIdentifier = $preReleaseIdentifier;
+        $this->preReleaseVersion = $preReleaseVersion;
     }
 
     /**
-     * @return string|null The build identifier.
+     * @return string|null The build meta-data.
      */
-    public function buildIdentifier()
+    public function buildMetaData()
     {
-        return $this->buildIdentifier;
+        $this->typeCheck->buildMetaData(func_get_args());
+
+        return $this->buildMetaData;
     }
 
     /**
-     * @return array An array containing the dot-separated components of the build identifier.
+     * @return array An array containing the dot-separated components of the build meta-data.
      */
-    public function buildIdentifierParts()
+    public function buildMetaDataParts()
     {
-        if (null === $this->buildIdentifier) {
+        $this->typeCheck->buildMetaDataParts(func_get_args());
+
+        if (null === $this->buildMetaData) {
             return array();
         }
 
-        return explode('.', $this->buildIdentifier);
+        return explode('.', $this->buildMetaData);
     }
 
     /**
-     * Set the build identifier.
+     * Set the build meta-data.
      *
-     * @param string|null $buildIdentifier The build identifier, not including the leading plus-sign.
+     * @param string|null $buildMetaData The build meta-data, not including the leading plus-sign.
      */
-    public function setBuildIdentifier($buildIdentifier)
+    public function setBuildMetaData($buildMetaData)
     {
-        $this->typeCheck->setBuildIdentifier(func_get_args());
+        $this->typeCheck->setBuildMetaData(func_get_args());
 
-        if (null !== $buildIdentifier && !preg_match(static::$identifierPattern, $buildIdentifier)) {
-            throw new InvalidArgumentException('The string "' . $buildIdentifier . '" is not a valid build identifier.');
+        if (null !== $buildMetaData && !preg_match(static::$identifierPattern, $buildMetaData)) {
+            throw new InvalidArgumentException('The string "' . $buildMetaData . '" is not a valid build meta-data.');
         }
 
-        $this->buildIdentifier = $buildIdentifier;
+        $this->buildMetaData = $buildMetaData;
     }
 
     /**
@@ -269,8 +288,10 @@ class Version
      */
     public function isStable()
     {
+        $this->typeCheck->isStable(func_get_args());
+
         return $this->major() > 0
-            && null === $this->preReleaseIdentifier();
+            && null === $this->preReleaseVersion();
     }
 
     /**
@@ -278,16 +299,18 @@ class Version
      */
     public function string()
     {
-        if (null !== $this->preReleaseIdentifier) {
-            $preReleaseIdentifierString = '-' . $this->preReleaseIdentifier;
+        $this->typeCheck->string(func_get_args());
+
+        if (null !== $this->preReleaseVersion) {
+            $preReleaseVersionString = '-' . $this->preReleaseVersion;
         } else {
-            $preReleaseIdentifierString = '';
+            $preReleaseVersionString = '';
         }
 
-        if (null !== $this->buildIdentifier) {
-            $buildIdentifierString = '+' . $this->buildIdentifier;
+        if (null !== $this->buildMetaData) {
+            $buildMetaDataString = '+' . $this->buildMetaData;
         } else {
-            $buildIdentifierString = '';
+            $buildMetaDataString = '';
         }
 
         return sprintf(
@@ -295,8 +318,8 @@ class Version
             $this->major(),
             $this->minor(),
             $this->patch(),
-            $preReleaseIdentifierString,
-            $buildIdentifierString
+            $preReleaseVersionString,
+            $buildMetaDataString
         );
     }
 
@@ -308,12 +331,64 @@ class Version
         return $this->string();
     }
 
+    /**
+     * Compare this object with another value, yielding a result according to the following table:
+     *
+     * +--------------------+---------------+
+     * | Condition          | Result        |
+     * +--------------------+---------------+
+     * | $this == $value    | $result === 0 |
+     * | $this < $value     | $result < 0   |
+     * | $this > $value     | $result > 0   |
+     * +--------------------+---------------+
+     *
+     * @param mixed           $value            The value to compare.
+     * @param Comparator|null $semverComparator The semantic version comparator to use for comparison, or null to use the default.
+     *
+     * @return integer                          The result of the comparison.
+     * @throws Exception\NotComparableException Indicates that the implementation does not know how to compare $this to $value.
+     */
+    public function compare($value, Comparator $semverComparator = null)
+    {
+        $this->typeCheck->compare(func_get_args());
+
+        if (!$this->canCompare($value)) {
+            throw new NotComparableException($this, $value);
+        }
+
+        if (null === $semverComparator) {
+            if (null === self::$defaultComparator) {
+                self::$defaultComparator = new Comparator;
+            }
+            $semverComparator = self::$defaultComparator;
+        }
+
+        return $semverComparator->compare($this, $value);
+
+    }
+
+    /**
+     * Check if $this is able to be compared to another value.
+     *
+     * A return value of false indicates that calling $this->compare($value)
+     * will throw an exception.
+     *
+     * @param mixed $value The value to compare.
+     *
+     * @return boolean True if $this can be compared to $value.
+     */
+    public function canCompare($value)
+    {
+        return $value instanceof Version;
+    }
+
+    private static $defaultComparator;
     private static $identifierPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
-    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseIdentifier>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildIdentifier>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
+    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
     private $typeCheck;
     private $major;
     private $minor;
     private $patch;
-    private $preReleaseIdentifier;
-    private $buildIdentifier;
+    private $preReleaseVersion;
+    private $buildMetaData;
 }

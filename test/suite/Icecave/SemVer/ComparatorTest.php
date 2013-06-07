@@ -78,6 +78,26 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider semverTestVectorsWithBuildMetaData
+     */
+    public function testSemverTestVectorsWithBuildMetaData($left, $right)
+    {
+        $left = Version::parse($left);
+        $right = Version::parse($right);
+        $this->assertSame(0, $this->_comparator->compare($left, $right));
+    }
+
+    /**
+     * @dataProvider semverTestVectorsWithBuildMetaData
+     */
+    public function testSemverTestVectorsWithBuildDataInverse($left, $right)
+    {
+        $left = Version::parse($left);
+        $right = Version::parse($right);
+        $this->assertSame(0, $this->_comparator->compare($right, $left));
+    }
+
+    /**
      * Test vectors from semver.org.
      *
      * For each pair the left hand side should be less than the right.
@@ -89,10 +109,16 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
             array('1.0.0-alpha.1', '1.0.0-beta.2'),
             array('1.0.0-beta.2', '1.0.0-beta.11'),
             array('1.0.0-beta.11', '1.0.0-rc.1'),
-            array('1.0.0-rc.1', '1.0.0-rc.1+build.1'),
             array('1.0.0-rc.1+build.1', '1.0.0'),
-            array('1.0.0', '1.0.0+0.3.7'),
             array('1.0.0+0.3.7', '1.3.7+build'),
+        );
+    }
+
+    public function semverTestVectorsWithBuildMetaData()
+    {
+        return array(
+            array('1.0.0-rc.1', '1.0.0-rc.1+build.1'),
+            array('1.0.0', '1.0.0+0.3.7'),
             array('1.3.7+build', '1.3.7+build.2.b8f12d7'),
             array('1.3.7+build.2.b8f12d7', '1.3.7+build.11.e0f985a'),
         );

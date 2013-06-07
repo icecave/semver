@@ -1,22 +1,29 @@
-![SemVer](http://icecave.com.au/assets/img/project-icons/icon-semver.png)<br>&nbsp;&nbsp;
-[![Build Status](https://api.travis-ci.org/IcecaveStudios/semver.png)](http://travis-ci.org/IcecaveStudios/semver)
-[![Test Coverage](http://icecave.com.au/semver/coverage-report/coverage.png)](http://icecave.com.au/semver/coverage-report/index.html)
+# SemVer
 
----
+[![Build Status]](http://travis-ci.org/IcecaveStudios/semver)
+[![Test Coverage]](http://icecavestudios.github.io/semver/artifacts/tests/coverage)
 
-**SemVer** is a small PHP library for parsing and comparing version numbers according to the [Semantic Version standard](http://semver.org). It currently behaves as per the 2.0.0-rc.1 specification.
+**SemVer** is a PHP library for parsing and comparing version numbers according to the [Semantic Versioning standard](http://semver.org).
+The current version behaves according to version 2.0.0-rc.2 of the specification.
 
-## Installation
+* Install via [Composer](http://getcomposer.org) package [icecave/semver](https://packagist.org/packages/icecave/semver)
+* Read the [API documentation](http://icecavestudios.github.io/semver/artifacts/documentation/api/)
 
-**SemVer** requires PHP 5.3.3 or later.
+## Example
 
-### With [Composer](http://getcomposer.org/)
+```php
+use Icecave\SemVer\Version;
+use Icecave\SemVer\Comparator;
 
-* Add 'icecave/semver' to the project's composer.json dependencies
-* Run `composer install`
+// Create versions from strings ...
+$version1 = Version::parse('1.2.0-rc.1+build.meta.data');
+$version2 = Version::parse('1.3.0');
 
-### Bare installation
+// Compare the versions ...
+$comparator = new Comparator;
+assert($comparator->compare($version1, $version2 < 0);
+```
 
-* Clone from GitHub: `git clone git://github.com/IcecaveStudios/semver.git`
-* Use a [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
-  compatible autoloader (namespace 'Icecave\SemVer' in the 'lib' directory)
+<!-- references -->
+[Build Status]: https://raw.github.com/IcecaveStudios/semver/gh-pages/artifacts/images/icecave/regular/build-status.png
+[Test Coverage]: https://raw.github.com/IcecaveStudios/semver/gh-pages/artifacts/images/icecave/regular/coverage.png

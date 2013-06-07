@@ -1,8 +1,7 @@
 {
     "name": "icecave/semver",
-    "type": "library",
-    "description": "Semantic version parser and comparators for PHP.",
-    "keywords": ["semantic", "version", "semver"],
+    "description": "A semantic version parser and comparison library.",
+    "keywords": ["semantic", "version", "semver", "compare", "comparison"],
     "homepage": "https://github.com/IcecaveStudios/semver",
     "license": "MIT",
     "authors": [
@@ -12,12 +11,12 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3",
+        "icecave/parity": "~0.1"
     },
     "require-dev": {
-        "icecave/testing": "2.*",
-        "icecave/woodhouse": "0.*",
-        "eloquent/typhoon": "0.6.*"
+        "eloquent/typhoon": "~0.9",
+        "icecave/archer": "~0.4"
     },
     "autoload": {
         "psr-0": {

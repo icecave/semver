@@ -21,7 +21,7 @@ $version2 = Version::parse('1.3.0');
 
 // Compare the versions ...
 $comparator = new Comparator;
-assert($comparator->compare($version1, $version2 < 0);
+assert($comparator->compare($version1, $version2) < 0);
 ```
 
 <!-- references -->

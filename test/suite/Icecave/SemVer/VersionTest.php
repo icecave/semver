@@ -205,9 +205,10 @@ class VersionTest extends PHPUnit_Framework_TestCase
             'numeric unstable'                  => array('0.0.0', false),
             'numeric'                           => array('1.2.3', true),
             'with pre-release'                  => array('1.2.3-preRelease', false),
-            'with pre-release, all chars'       => array('1.2.3-abcdefghijklmnopqrstuvwxyz.ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789', false),
+            'with pre-release, all chars'       => array('1.2.3-abcdefghijklmnopqrstuvwxyz.ABCDEFGHIJKLMNOPQRSTUVWXYZ.1234567890', false),
             'with build'                        => array('1.2.3+build', true),
-            'with build, all chars'             => array('1.2.3+abcdefghijklmnopqrstuvwxyz.ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789', true),
+            'with build, all chars'             => array('1.2.3+abcdefghijklmnopqrstuvwxyz.ABCDEFGHIJKLMNOPQRSTUVWXYZ.1234567890', true),
+            'with build, leading zero'          => array('1.2.3+0123', true),
             'with pre-release + build'          => array('1.2.3-preRelease+build', false),
         );
     }
@@ -258,7 +259,12 @@ class VersionTest extends PHPUnit_Framework_TestCase
             'double digits'                     => array('1.2'),
             'extra digits'                      => array('1.2.3.4'),
             'invalid pre-release'               => array('1.2.3-foo_bar'),
+            'invalid pre-release, leading zero' => array('1.2.3-0123'),
+            'invalid pre-release, empty'        => array('1.2.3-'),
+            'invalid pre-release, empty atom'   => array('1.2.3-foo..bar'),
             'invalid build'                     => array('1.2.3+foo_bar'),
+            'invalid build, empty'              => array('1.2.3+'),
+            'invalid build, empty atom'         => array('1.2.3+foo..bar'),
         );
     }
 

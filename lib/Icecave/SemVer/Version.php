@@ -236,7 +236,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     {
         $this->typeCheck->setPreReleaseVersion(func_get_args());
 
-        if (null !== $preReleaseVersion && !preg_match(static::$identifierPattern, $preReleaseVersion)) {
+        if (null !== $preReleaseVersion && !preg_match(static::$preReleaseVersionPattern, $preReleaseVersion)) {
             throw new InvalidArgumentException('The string "' . $preReleaseVersion . '" is not a valid pre-release version.');
         }
 
@@ -276,7 +276,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     {
         $this->typeCheck->setBuildMetaData(func_get_args());
 
-        if (null !== $buildMetaData && !preg_match(static::$identifierPattern, $buildMetaData)) {
+        if (null !== $buildMetaData && !preg_match(static::$buildMetaDataPattern, $buildMetaData)) {
             throw new InvalidArgumentException('The string "' . $buildMetaData . '" is not a valid build meta-data.');
         }
 
@@ -379,12 +379,15 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function canCompare($value)
     {
+        $this->typeCheck->canCompare(func_get_args());
+
         return $value instanceof Version;
     }
 
     private static $defaultComparator;
-    private static $identifierPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
-    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
+    private static $preReleaseVersionPattern = '/^([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(\.([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*))*$/i';
+    private static $buildMetaDataPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
+    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(?:\.(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
     private $typeCheck;
     private $major;
     private $minor;

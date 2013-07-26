@@ -50,10 +50,11 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
     public function comparisonTestVectors()
     {
         return array(
-            'major version comparison'      => array('1.0.0', '2.0.0'),
-            'minor version comparison'      => array('1.1.0', '1.2.0'),
-            'patch version comparison'      => array('1.1.1', '1.1.2'),
-            'numeric always less than text' => array('0.0.0-100', '0.0.0-0x'),
+            'major version comparison'       => array('1.0.0', '2.0.0'),
+            'minor version comparison'       => array('1.1.0', '1.2.0'),
+            'patch version comparison'       => array('1.1.1', '1.1.2'),
+            'numeric always less than text'  => array('0.0.0-100', '0.0.0-0x'),
+            'pre-release version field size' => array('0.0.0-x', '0.0.0-x.x'),
         );
     }
 

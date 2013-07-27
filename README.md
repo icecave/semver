@@ -1,7 +1,8 @@
 # SemVer
 
-[![Build Status]](http://travis-ci.org/IcecaveStudios/semver)
-[![Test Coverage]](http://icecavestudios.github.io/semver/artifacts/tests/coverage)
+[![Build Status]](https://travis-ci.org/IcecaveStudios/semver)
+[![Test Coverage]](https://coveralls.io/r/IcecaveStudios/semver?branch=develop)
+[![SemVer]](http://semver.org)
 
 **SemVer** is a PHP library for parsing and comparing version numbers according to the [Semantic Versioning standard](http://semver.org).
 The current version behaves according to version 2.0.0-rc.2 of the specification.
@@ -25,5 +26,6 @@ assert($comparator->compare($version1, $version2) < 0);
 ```
 
 <!-- references -->
-[Build Status]: https://raw.github.com/IcecaveStudios/semver/gh-pages/artifacts/images/icecave/regular/build-status.png
-[Test Coverage]: https://raw.github.com/IcecaveStudios/semver/gh-pages/artifacts/images/icecave/regular/coverage.png
+[Build Status]: https://travis-ci.org/IcecaveStudios/semver.png?branch=develop
+[Test Coverage]: https://coveralls.io/repos/IcecaveStudios/semver/badge.png?branch=develop
+[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=3.0.0&color=green

@@ -18,6 +18,8 @@ class Comparator
      *
      * Versions with the same precedence are considered equal.
      *
+     * Versions that differ only by their build meta-data have the same precedence.
+     *
      * @param Version $left
      * @param Version $right
      *
@@ -81,6 +83,8 @@ class Comparator
     }
 
     /**
+     * Compare one component of a pre-release or build meta-data string.
+     *
      * @param string $left
      * @param string $right
      *

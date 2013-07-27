@@ -4,7 +4,7 @@ namespace Icecave\SemVer;
 use Icecave\SemVer\TypeCheck\TypeCheck;
 
 /**
- * Compares two Version instances using the rules defined at http://semver.org/ @ 2.0.0-rc.2
+ * Compares versions according to their precedence.
  */
 class Comparator
 {
@@ -14,6 +14,12 @@ class Comparator
     }
 
     /**
+     * Compare two versions according to their precedence.
+     *
+     * Versions with the same precedence are considered equal.
+     *
+     * Versions that differ only by their build meta-data have the same precedence.
+     *
      * @param Version $left
      * @param Version $right
      *
@@ -77,6 +83,8 @@ class Comparator
     }
 
     /**
+     * Compare one component of a pre-release or build meta-data string.
+     *
      * @param string $left
      * @param string $right
      *

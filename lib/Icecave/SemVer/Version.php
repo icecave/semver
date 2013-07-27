@@ -8,7 +8,9 @@ use Icecave\Parity\RestrictedComparableInterface;
 use Icecave\Parity\Exception\NotComparableException;
 
 /**
- * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.2
+ * Represents a Semantic Version number, as described by v2.0.0 of the Semantic Versioning specification.
+ *
+ * @link http://semver.org/
  */
 class Version extends AbstractComparable implements RestrictedComparableInterface
 {
@@ -126,6 +128,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the major version.
+     *
      * @return integer The major version number.
      */
     public function major()
@@ -152,6 +156,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the minor version.
+     *
      * @return integer The minor version number.
      */
     public function minor()
@@ -178,6 +184,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the patch version.
+     *
      * @return integer The patch version number.
      */
     public function patch()
@@ -204,6 +212,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the pre-release portion of the version.
+     *
      * @return string|null The pre-release version.
      */
     public function preReleaseVersion()
@@ -214,6 +224,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the components of the pre-release version.
+     *
      * @return array An array containing the dot-separated components of the pre-release version.
      */
     public function preReleaseVersionParts()
@@ -236,7 +248,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     {
         $this->typeCheck->setPreReleaseVersion(func_get_args());
 
-        if (null !== $preReleaseVersion && !preg_match(static::$identifierPattern, $preReleaseVersion)) {
+        if (null !== $preReleaseVersion && !preg_match(static::$preReleaseVersionPattern, $preReleaseVersion)) {
             throw new InvalidArgumentException('The string "' . $preReleaseVersion . '" is not a valid pre-release version.');
         }
 
@@ -244,6 +256,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the build meta-data portion of the version.
+     *
      * @return string|null The build meta-data.
      */
     public function buildMetaData()
@@ -254,6 +268,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the components of the build meta-data portion.
+     *
      * @return array An array containing the dot-separated components of the build meta-data.
      */
     public function buildMetaDataParts()
@@ -276,7 +292,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     {
         $this->typeCheck->setBuildMetaData(func_get_args());
 
-        if (null !== $buildMetaData && !preg_match(static::$identifierPattern, $buildMetaData)) {
+        if (null !== $buildMetaData && !preg_match(static::$buildMetaDataPattern, $buildMetaData)) {
             throw new InvalidArgumentException('The string "' . $buildMetaData . '" is not a valid build meta-data.');
         }
 
@@ -284,6 +300,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Check if this version is stable.
+     *
      * @return boolean Indicates whether or not this version represents a stable release.
      */
     public function isStable()
@@ -295,6 +313,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the string representation of this version.
+     *
      * @return string The string representation of this version.
      */
     public function string()
@@ -324,6 +344,8 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
     }
 
     /**
+     * Get the string representation of this version.
+     *
      * @return string The string representation of this version.
      */
     public function __toString()
@@ -341,6 +363,9 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      * | $this < $value     | $result < 0   |
      * | $this > $value     | $result > 0   |
      * +--------------------+---------------+
+     *
+     * By default, a {@see Comparator} instance is used for comparison, meaning that versions are compared according to
+     * their PRECEDENCE, as defined by the Semantic Versioning specification.
      *
      * @param mixed           $value            The value to compare.
      * @param Comparator|null $semverComparator The semantic version comparator to use for comparison, or null to use the default.
@@ -379,12 +404,15 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function canCompare($value)
     {
+        $this->typeCheck->canCompare(func_get_args());
+
         return $value instanceof Version;
     }
 
     private static $defaultComparator;
-    private static $identifierPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
-    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
+    private static $preReleaseVersionPattern = '/^([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(\.([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*))*$/i';
+    private static $buildMetaDataPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
+    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(?:\.(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
     private $typeCheck;
     private $major;
     private $minor;

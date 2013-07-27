@@ -8,7 +8,7 @@ use Icecave\Parity\RestrictedComparableInterface;
 use Icecave\Parity\Exception\NotComparableException;
 
 /**
- * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0-rc.2
+ * Represents a Semantic Version number as per http://semver.org/ @ 2.0.0
  */
 class Version extends AbstractComparable implements RestrictedComparableInterface
 {

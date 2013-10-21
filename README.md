@@ -28,4 +28,4 @@ assert($comparator->compare($version1, $version2) < 0);
 <!-- references -->
 [Build Status]: https://travis-ci.org/IcecaveStudios/semver.png?branch=develop
 [Test Coverage]: https://coveralls.io/repos/IcecaveStudios/semver/badge.png?branch=develop
-[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=3.0.0&color=green
+[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=3.0.1&color=green

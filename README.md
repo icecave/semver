@@ -26,6 +26,6 @@ assert($comparator->compare($version1, $version2) < 0);
 ```
 
 <!-- references -->
-[Build Status]: https://b.adge.me/travis/IcecaveStudios/semver/develop.svg
-[Test Coverage]: https://b.adge.me/coveralls/IcecaveStudios/semver/develop.svg
-[SemVer]: https://b.adge.me/:semver-3.0.1-brightgreen.svg
+[Build Status]: http://img.shields.io/travis/IcecaveStudios/semver/develop.svg
+[Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/semver/develop.svg
+[SemVer]: http://img.shields.io/:semver-3.0.1-brightgreen.svg

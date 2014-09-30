@@ -1,17 +1,17 @@
 <?php
 namespace Icecave\SemVer;
 
-use InvalidArgumentException;
-use Icecave\Parity\AbstractComparable;
-use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\SubClassComparableInterface;
+use InvalidArgumentException;
 
 /**
  * Represents a Semantic Version number, as described by v2.0.0 of the Semantic Versioning specification.
  *
  * @link http://semver.org/
  */
-class Version extends AbstractComparable implements RestrictedComparableInterface
+class Version extends AbstractExtendedComparable implements SubClassComparableInterface
 {
     /**
      * @param integer     $major             The major version number.
@@ -336,7 +336,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function compare($value, Comparator $semverComparator = null)
     {
-        if (!$this->canCompare($value)) {
+        if (!$value instanceof self) {
             throw new NotComparableException($this, $value);
         }
 
@@ -349,21 +349,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
 
         return $semverComparator->compare($this, $value);
 
-    }
-
-    /**
-     * Check if $this is able to be compared to another value.
-     *
-     * A return value of false indicates that calling $this->compare($value)
-     * will throw an exception.
-     *
-     * @param mixed $value The value to compare.
-     *
-     * @return boolean True if $this can be compared to $value.
-     */
-    public function canCompare($value)
-    {
-        return $value instanceof Version;
     }
 
     private static $defaultComparator;

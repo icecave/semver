@@ -342,7 +342,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
 
         if (null === $semverComparator) {
             if (null === self::$defaultComparator) {
-                self::$defaultComparator = new Comparator;
+                self::$defaultComparator = new Comparator();
             }
             $semverComparator = self::$defaultComparator;
         }

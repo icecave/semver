@@ -7,7 +7,7 @@ class CompatibilityComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_comparator = new CompatibilityComparator;
+        $this->_comparator = new CompatibilityComparator();
     }
 
     /**

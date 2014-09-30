@@ -12,7 +12,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
 
     public function testDefaults()
     {
-        $version = new Version;
+        $version = new Version();
         $this->assertSame(0, $version->major());
         $this->assertSame(0, $version->minor());
         $this->assertSame(0, $version->patch());

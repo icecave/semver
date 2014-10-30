@@ -1,18 +1,17 @@
 <?php
 namespace Icecave\SemVer;
 
-use InvalidArgumentException;
-use Icecave\SemVer\TypeCheck\TypeCheck;
-use Icecave\Parity\AbstractComparable;
-use Icecave\Parity\RestrictedComparableInterface;
+use Icecave\Parity\AbstractExtendedComparable;
 use Icecave\Parity\Exception\NotComparableException;
+use Icecave\Parity\SubClassComparableInterface;
+use InvalidArgumentException;
 
 /**
  * Represents a Semantic Version number, as described by v2.0.0 of the Semantic Versioning specification.
  *
  * @link http://semver.org/
  */
-class Version extends AbstractComparable implements RestrictedComparableInterface
+class Version extends AbstractExtendedComparable implements SubClassComparableInterface
 {
     /**
      * @param integer     $major             The major version number.
@@ -23,8 +22,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function __construct($major = 0, $minor = 0, $patch = 0, $preReleaseVersion = null, $buildMetaData = null)
     {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
         $this->setMajor($major);
         $this->setMinor($minor);
         $this->setPatch($patch);
@@ -42,8 +39,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public static function parse($version)
     {
-        TypeCheck::get(__CLASS__)->parse(func_get_args());
-
         $parsedVersion = null;
         if (static::tryParse($version, $parsedVersion)) {
             return $parsedVersion;
@@ -62,8 +57,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public static function tryParse($version, Version &$parsedVersion = null)
     {
-        TypeCheck::get(__CLASS__)->tryParse(func_get_args());
-
         $matches = array();
         if (!preg_match(static::$versionPattern, $version, $matches)) {
             return false;
@@ -101,8 +94,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public static function isValid($version)
     {
-        TypeCheck::get(__CLASS__)->isValid(func_get_args());
-
         return preg_match(static::$versionPattern, $version) === 1;
     }
 
@@ -118,8 +109,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public static function adapt($version)
     {
-        TypeCheck::get(__CLASS__)->adapt(func_get_args());
-
         if ($version instanceof static) {
             return $version;
         }
@@ -134,8 +123,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function major()
     {
-        $this->typeCheck->major(func_get_args());
-
         return $this->major;
     }
 
@@ -146,9 +133,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function setMajor($major)
     {
-        $this->typeCheck->setMajor(func_get_args());
-
-        if ($major < 0) {
+        if (!is_integer($major) || $major < 0) {
             throw new InvalidArgumentException('Major version number must be a positive integer.');
         }
 
@@ -162,8 +147,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function minor()
     {
-        $this->typeCheck->minor(func_get_args());
-
         return $this->minor;
     }
 
@@ -174,9 +157,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function setMinor($minor)
     {
-        $this->typeCheck->setMinor(func_get_args());
-
-        if ($minor < 0) {
+        if (!is_integer($minor) || $minor < 0) {
             throw new InvalidArgumentException('Major version number must be a positive integer.');
         }
 
@@ -190,8 +171,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function patch()
     {
-        $this->typeCheck->patch(func_get_args());
-
         return $this->patch;
     }
 
@@ -202,9 +181,7 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function setPatch($patch)
     {
-        $this->typeCheck->setPatch(func_get_args());
-
-        if ($patch < 0) {
+        if (!is_integer($patch) || $patch < 0) {
             throw new InvalidArgumentException('Major version number must be a positive integer.');
         }
 
@@ -218,8 +195,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function preReleaseVersion()
     {
-        $this->typeCheck->preReleaseVersion(func_get_args());
-
         return $this->preReleaseVersion;
     }
 
@@ -230,8 +205,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function preReleaseVersionParts()
     {
-        $this->typeCheck->preReleaseVersionParts(func_get_args());
-
         if (null === $this->preReleaseVersion) {
             return array();
         }
@@ -246,8 +219,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function setPreReleaseVersion($preReleaseVersion)
     {
-        $this->typeCheck->setPreReleaseVersion(func_get_args());
-
         if (null !== $preReleaseVersion && !preg_match(static::$preReleaseVersionPattern, $preReleaseVersion)) {
             throw new InvalidArgumentException('The string "' . $preReleaseVersion . '" is not a valid pre-release version.');
         }
@@ -262,8 +233,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function buildMetaData()
     {
-        $this->typeCheck->buildMetaData(func_get_args());
-
         return $this->buildMetaData;
     }
 
@@ -274,8 +243,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function buildMetaDataParts()
     {
-        $this->typeCheck->buildMetaDataParts(func_get_args());
-
         if (null === $this->buildMetaData) {
             return array();
         }
@@ -290,8 +257,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function setBuildMetaData($buildMetaData)
     {
-        $this->typeCheck->setBuildMetaData(func_get_args());
-
         if (null !== $buildMetaData && !preg_match(static::$buildMetaDataPattern, $buildMetaData)) {
             throw new InvalidArgumentException('The string "' . $buildMetaData . '" is not a valid build meta-data.');
         }
@@ -306,8 +271,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function isStable()
     {
-        $this->typeCheck->isStable(func_get_args());
-
         return $this->major() > 0
             && null === $this->preReleaseVersion();
     }
@@ -319,8 +282,6 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function string()
     {
-        $this->typeCheck->string(func_get_args());
-
         if (null !== $this->preReleaseVersion) {
             $preReleaseVersionString = '-' . $this->preReleaseVersion;
         } else {
@@ -375,15 +336,13 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
      */
     public function compare($value, Comparator $semverComparator = null)
     {
-        $this->typeCheck->compare(func_get_args());
-
-        if (!$this->canCompare($value)) {
+        if (!$value instanceof self) {
             throw new NotComparableException($this, $value);
         }
 
         if (null === $semverComparator) {
             if (null === self::$defaultComparator) {
-                self::$defaultComparator = new Comparator;
+                self::$defaultComparator = new Comparator();
             }
             $semverComparator = self::$defaultComparator;
         }
@@ -392,28 +351,10 @@ class Version extends AbstractComparable implements RestrictedComparableInterfac
 
     }
 
-    /**
-     * Check if $this is able to be compared to another value.
-     *
-     * A return value of false indicates that calling $this->compare($value)
-     * will throw an exception.
-     *
-     * @param mixed $value The value to compare.
-     *
-     * @return boolean True if $this can be compared to $value.
-     */
-    public function canCompare($value)
-    {
-        $this->typeCheck->canCompare(func_get_args());
-
-        return $value instanceof Version;
-    }
-
     private static $defaultComparator;
     private static $preReleaseVersionPattern = '/^([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(\.([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*))*$/i';
     private static $buildMetaDataPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
     private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(?:\.(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
-    private $typeCheck;
     private $major;
     private $minor;
     private $patch;

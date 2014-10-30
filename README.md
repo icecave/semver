@@ -25,7 +25,13 @@ $comparator = new Comparator;
 assert($comparator->compare($version1, $version2) < 0);
 ```
 
+## Contact us
+
+* Follow [@IcecaveStudios](https://twitter.com/IcecaveStudios) on Twitter
+* Visit the [Icecave Studios website](http://icecave.com.au)
+* Join `#icecave` on [irc.freenode.net](http://webchat.freenode.net?channels=icecave)
+
 <!-- references -->
-[Build Status]: https://travis-ci.org/IcecaveStudios/semver.png?branch=develop
-[Test Coverage]: https://coveralls.io/repos/IcecaveStudios/semver/badge.png?branch=develop
-[SemVer]: http://calm-shore-6115.herokuapp.com/?label=semver&value=3.0.0&color=green
+[Build Status]: http://img.shields.io/travis/IcecaveStudios/semver/develop.svg?style=flat-square
+[Test Coverage]: http://img.shields.io/coveralls/IcecaveStudios/semver/develop.svg?style=flat-square
+[SemVer]: http://img.shields.io/:semver-3.0.2-brightgreen.svg?style=flat-square

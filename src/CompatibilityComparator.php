@@ -1,20 +1,11 @@
 <?php
 namespace Icecave\SemVer;
 
-use Icecave\SemVer\TypeCheck\TypeCheck;
-
 /**
  * Compares two version instances such that they compare as equal whenever $right is compatible with $left.
  */
 class CompatibilityComparator extends Comparator
 {
-    public function __construct()
-    {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-
-        parent::__construct();
-    }
-
     /**
      * Compare two version instances such that they compare as equal whenever $right is compatible with $left.
      *
@@ -25,8 +16,6 @@ class CompatibilityComparator extends Comparator
      */
     public function compare(Version $left, Version $right)
     {
-        $this->typeCheck->compare(func_get_args());
-
         $result = parent::compare($left, $right);
         if ($result <= 0 && $left->major() === $right->major()) {
             return 0;
@@ -34,6 +23,4 @@ class CompatibilityComparator extends Comparator
 
         return $result;
     }
-
-    private $typeCheck;
 }

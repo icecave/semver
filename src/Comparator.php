@@ -1,18 +1,11 @@
 <?php
 namespace Icecave\SemVer;
 
-use Icecave\SemVer\TypeCheck\TypeCheck;
-
 /**
  * Compares versions according to their precedence.
  */
 class Comparator
 {
-    public function __construct()
-    {
-        $this->typeCheck = TypeCheck::get(__CLASS__, func_get_args());
-    }
-
     /**
      * Compare two versions according to their precedence.
      *
@@ -27,8 +20,6 @@ class Comparator
      */
     public function compare(Version $left, Version $right)
     {
-        $this->typeCheck->compare(func_get_args());
-
         // Compare the major version ...
         if ($diff = $left->major() - $right->major()) {
             return $diff;
@@ -61,8 +52,6 @@ class Comparator
      */
     protected function compareIdentifierParts(array $left, array $right)
     {
-        $this->typeCheck->compareIdentifierParts(func_get_args());
-
         $leftCount = count($left);
         $rightCount = count($right);
 
@@ -92,8 +81,6 @@ class Comparator
      */
     protected function compareIdentifierPart($left, $right)
     {
-        $this->typeCheck->compareIdentifierPart(func_get_args());
-
         $leftDigits = ctype_digit($left);
         $rightDigits = ctype_digit($right);
 
@@ -113,6 +100,4 @@ class Comparator
         // Compare both sides as strings ...
         return strcmp($left, $right);
     }
-
-    private $typeCheck;
 }

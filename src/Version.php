@@ -348,13 +348,12 @@ class Version extends AbstractExtendedComparable implements SubClassComparableIn
         }
 
         return $semverComparator->compare($this, $value);
-
     }
 
     private static $defaultComparator;
     private static $preReleaseVersionPattern = '/^([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(\.([1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*))*$/i';
-    private static $buildMetaDataPattern = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
-    private static $versionPattern = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(?:\.(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
+    private static $buildMetaDataPattern     = '/^[0-9a-z-]+(\.[0-9a-z-]+)*$/i';
+    private static $versionPattern           = '/^(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)(?:-(?P<preReleaseVersion>(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)(?:\.(?:[1-9][0-9]*|[0-9a-z-]*[a-z-][0-9a-z-]*)+)*))?(?:\+(?P<buildMetaData>[0-9a-z-]+(?:\.[0-9a-z-]+)*))?$/i';
     private $major;
     private $minor;
     private $patch;

@@ -52,7 +52,7 @@ class Comparator
      */
     protected function compareIdentifierParts(array $left, array $right)
     {
-        $leftCount = count($left);
+        $leftCount  = count($left);
         $rightCount = count($right);
 
         // If either of the sides is empty we can bail early ...
@@ -81,7 +81,7 @@ class Comparator
      */
     protected function compareIdentifierPart($left, $right)
     {
-        $leftDigits = ctype_digit($left);
+        $leftDigits  = ctype_digit($left);
         $rightDigits = ctype_digit($right);
 
         // If both are digits compare as numbers ...

@@ -78,6 +78,5 @@ class CompatibilityComparatorTest extends PHPUnit_Framework_TestCase
             'patch version comparison'              => array('1.1.1', '1.1.2',     true),
             'zero major version comparison'         => array('0.1.0', '0.2.0',     false), // never compatible unless equal
         );
-
     }
 }

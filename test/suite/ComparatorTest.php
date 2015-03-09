@@ -7,7 +7,7 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_comparator = new Comparator();
+        $this->comparator = new Comparator();
     }
 
     /**
@@ -15,11 +15,11 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCompareEquality($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
 
-        $this->assertSame(0, $this->_comparator->compare($left, $left));
-        $this->assertSame(0, $this->_comparator->compare($right, $right));
+        $this->assertSame(0, $this->comparator->compare($left, $left));
+        $this->assertSame(0, $this->comparator->compare($right, $right));
     }
 
     /**
@@ -27,9 +27,9 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCompare($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertLessThan(0, $this->_comparator->compare($left, $right));
+        $this->assertLessThan(0, $this->comparator->compare($left, $right));
     }
 
     /**
@@ -37,9 +37,9 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCompareInverse($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertGreaterThan(0, $this->_comparator->compare($right, $left));
+        $this->assertGreaterThan(0, $this->comparator->compare($right, $left));
     }
 
     /**
@@ -63,9 +63,9 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testSemverTestVectors($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertLessThan(0, $this->_comparator->compare($left, $right));
+        $this->assertLessThan(0, $this->comparator->compare($left, $right));
     }
 
     /**
@@ -73,9 +73,9 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testSemverTestVectorsInverse($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertGreaterThan(0, $this->_comparator->compare($right, $left));
+        $this->assertGreaterThan(0, $this->comparator->compare($right, $left));
     }
 
     /**
@@ -83,9 +83,9 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testSemverTestVectorsWithBuildMetaData($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertSame(0, $this->_comparator->compare($left, $right));
+        $this->assertSame(0, $this->comparator->compare($left, $right));
     }
 
     /**
@@ -93,9 +93,9 @@ class ComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testSemverTestVectorsWithBuildDataInverse($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertSame(0, $this->_comparator->compare($right, $left));
+        $this->assertSame(0, $this->comparator->compare($right, $left));
     }
 
     /**

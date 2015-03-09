@@ -17,7 +17,12 @@ class CompatibilityComparator extends Comparator
     public function compare(Version $left, Version $right)
     {
         $result = parent::compare($left, $right);
-        if ($result <= 0 && $left->major() === $right->major()) {
+
+        if (
+            $result <= 0
+            && $left->major() !== 0
+            && $left->major() === $right->major()
+        ) {
             return 0;
         }
 

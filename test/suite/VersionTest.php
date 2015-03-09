@@ -7,7 +7,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_version = new Version(1, 2, 3, 'preReleaseVersion', 'buildMetaData');
+        $this->version = new Version(1, 2, 3, 'preReleaseVersion', 'buildMetaData');
     }
 
     public function testDefaults()
@@ -22,13 +22,13 @@ class VersionTest extends PHPUnit_Framework_TestCase
 
     public function testMajor()
     {
-        $this->assertSame(1, $this->_version->major());
+        $this->assertSame(1, $this->version->major());
     }
 
     public function testSetMajor()
     {
-        $this->_version->setMajor(100);
-        $this->assertSame(100, $this->_version->major());
+        $this->version->setMajor(100);
+        $this->assertSame(100, $this->version->major());
     }
 
     /**
@@ -36,18 +36,18 @@ class VersionTest extends PHPUnit_Framework_TestCase
      */
     public function testSetMajorFailure()
     {
-        $this->_version->setMajor(-1);
+        $this->version->setMajor(-1);
     }
 
     public function testMinor()
     {
-        $this->assertSame(2, $this->_version->minor());
+        $this->assertSame(2, $this->version->minor());
     }
 
     public function testSetMinor()
     {
-        $this->_version->setMinor(100);
-        $this->assertSame(100, $this->_version->minor());
+        $this->version->setMinor(100);
+        $this->assertSame(100, $this->version->minor());
     }
 
     /**
@@ -55,12 +55,12 @@ class VersionTest extends PHPUnit_Framework_TestCase
      */
     public function testSetMinorFailure()
     {
-        $this->_version->setMinor(-1);
+        $this->version->setMinor(-1);
     }
 
     public function testPatch()
     {
-        $this->assertSame(3, $this->_version->patch());
+        $this->assertSame(3, $this->version->patch());
     }
 
     /**
@@ -68,36 +68,36 @@ class VersionTest extends PHPUnit_Framework_TestCase
      */
     public function testSetPatchFailure()
     {
-        $this->_version->setPatch(-1);
+        $this->version->setPatch(-1);
     }
 
     public function testSetPatch()
     {
-        $this->_version->setPatch(100);
-        $this->assertSame(100, $this->_version->patch());
+        $this->version->setPatch(100);
+        $this->assertSame(100, $this->version->patch());
     }
 
     public function testPreReleaseVersion()
     {
-        $this->assertSame('preReleaseVersion', $this->_version->preReleaseVersion());
+        $this->assertSame('preReleaseVersion', $this->version->preReleaseVersion());
     }
 
     public function testSetPreReleaseVersion()
     {
-        $this->_version->setPreReleaseVersion('foo');
-        $this->assertSame('foo', $this->_version->preReleaseVersion());
+        $this->version->setPreReleaseVersion('foo');
+        $this->assertSame('foo', $this->version->preReleaseVersion());
     }
 
     public function testPreReleaseVersionParts()
     {
-        $this->_version->setPreReleaseVersion(null);
-        $this->assertSame(array(), $this->_version->preReleaseVersionParts());
+        $this->version->setPreReleaseVersion(null);
+        $this->assertSame(array(), $this->version->preReleaseVersionParts());
 
-        $this->_version->setPreReleaseVersion('foo');
-        $this->assertSame(array('foo'), $this->_version->preReleaseVersionParts());
+        $this->version->setPreReleaseVersion('foo');
+        $this->assertSame(array('foo'), $this->version->preReleaseVersionParts());
 
-        $this->_version->setPreReleaseVersion('foo.bar');
-        $this->assertSame(array('foo', 'bar'), $this->_version->preReleaseVersionParts());
+        $this->version->setPreReleaseVersion('foo.bar');
+        $this->assertSame(array('foo', 'bar'), $this->version->preReleaseVersionParts());
     }
 
     /**
@@ -105,30 +105,30 @@ class VersionTest extends PHPUnit_Framework_TestCase
      */
     public function testSetPreReleaseVersionFailure()
     {
-        $this->_version->setPreReleaseVersion('foo_bar');
+        $this->version->setPreReleaseVersion('foo_bar');
     }
 
     public function testBuildMetaData()
     {
-        $this->assertSame('buildMetaData', $this->_version->buildMetaData());
+        $this->assertSame('buildMetaData', $this->version->buildMetaData());
     }
 
     public function testBuildMetaDataParts()
     {
-        $this->_version->setBuildMetaData(null);
-        $this->assertSame(array(), $this->_version->buildMetaDataParts());
+        $this->version->setBuildMetaData(null);
+        $this->assertSame(array(), $this->version->buildMetaDataParts());
 
-        $this->_version->setBuildMetaData('foo');
-        $this->assertSame(array('foo'), $this->_version->buildMetaDataParts());
+        $this->version->setBuildMetaData('foo');
+        $this->assertSame(array('foo'), $this->version->buildMetaDataParts());
 
-        $this->_version->setBuildMetaData('foo.bar');
-        $this->assertSame(array('foo', 'bar'), $this->_version->buildMetaDataParts());
+        $this->version->setBuildMetaData('foo.bar');
+        $this->assertSame(array('foo', 'bar'), $this->version->buildMetaDataParts());
     }
 
     public function testSetBuildMetaData()
     {
-        $this->_version->setBuildMetaData('foo');
-        $this->assertSame('foo', $this->_version->buildMetaData());
+        $this->version->setBuildMetaData('foo');
+        $this->assertSame('foo', $this->version->buildMetaData());
     }
 
     /**
@@ -136,13 +136,13 @@ class VersionTest extends PHPUnit_Framework_TestCase
      */
     public function testSetBuildMetaDataFailure()
     {
-        $this->_version->setBuildMetaData('foo_bar');
+        $this->version->setBuildMetaData('foo_bar');
     }
 
     public function testString()
     {
-        $this->assertSame('1.2.3-preReleaseVersion+buildMetaData', $this->_version->string());
-        $this->assertSame('1.2.3-preReleaseVersion+buildMetaData', strval($this->_version));
+        $this->assertSame('1.2.3-preReleaseVersion+buildMetaData', $this->version->string());
+        $this->assertSame('1.2.3-preReleaseVersion+buildMetaData', strval($this->version));
     }
 
     /**
@@ -180,7 +180,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function testTryParse($string)
     {
         $version = null;
-        $result = Version::tryParse($string, $version);
+        $result  = Version::tryParse($string, $version);
         $this->assertTrue($result);
         $this->assertInstanceOf(__NAMESPACE__ . '\Version', $version);
         $this->assertSame($string, $version->string());
@@ -196,7 +196,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
 
     public function testAdapt()
     {
-        $this->assertSame($this->_version, Version::adapt($this->_version));
+        $this->assertSame($this->version, Version::adapt($this->version));
     }
 
     public function validVersionStrings()
@@ -229,7 +229,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function testTryParseFailure($string)
     {
         $version = null;
-        $result = Version::parse($string, $version);
+        $result  = Version::parse($string, $version);
 
         $this->assertFalse($result);
         $this->assertNull($version);

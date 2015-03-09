@@ -7,7 +7,7 @@ class CompatibilityComparatorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_comparator = new CompatibilityComparator();
+        $this->comparator = new CompatibilityComparator();
     }
 
     /**
@@ -15,11 +15,18 @@ class CompatibilityComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCompareEquality($left, $right)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
 
-        $this->assertSame(0, $this->_comparator->compare($left, $left));
-        $this->assertSame(0, $this->_comparator->compare($right, $right));
+        $this->assertSame(
+            0,
+            $this->comparator->compare($left, $left)
+        );
+
+        $this->assertSame(
+            0,
+            $this->comparator->compare($right, $right)
+        );
     }
 
     /**
@@ -27,13 +34,19 @@ class CompatibilityComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCompare($left, $right, $isCompatible)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
 
         if ($isCompatible) {
-            $this->assertSame(0, $this->_comparator->compare($left, $right));
+            $this->assertSame(
+                0,
+                $this->comparator->compare($left, $right)
+            );
         } else {
-            $this->assertLessThan(0, $this->_comparator->compare($left, $right));
+            $this->assertLessThan(
+                0,
+                $this->comparator->compare($left, $right)
+            );
         }
     }
 
@@ -42,9 +55,13 @@ class CompatibilityComparatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCompareInverse($left, $right, $isCompatible)
     {
-        $left = Version::parse($left);
+        $left  = Version::parse($left);
         $right = Version::parse($right);
-        $this->assertGreaterThan(0, $this->_comparator->compare($right, $left));
+
+        $this->assertGreaterThan(
+            0,
+            $this->comparator->compare($right, $left)
+        );
     }
 
     /**
@@ -55,10 +72,11 @@ class CompatibilityComparatorTest extends PHPUnit_Framework_TestCase
     public function comparisonTestVectors()
     {
         return array(
-            'major version comparison'              => array('1.0.0', '2.0.0', false),
+            'major version comparison'              => array('1.0.0', '2.0.0',     false),
             'major version comparison, pre-release' => array('1.0.0', '2.0.0-foo', false),
-            'minor version comparison'              => array('1.1.0', '1.2.0', true),
-            'patch version comparison'              => array('1.1.1', '1.1.2', true),
+            'minor version comparison'              => array('1.1.0', '1.2.0',     true),
+            'patch version comparison'              => array('1.1.1', '1.1.2',     true),
+            'zero major version comparison'         => array('0.1.0', '0.2.0',     false), // never compatible unless equal
         );
     }
 }

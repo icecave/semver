@@ -1,5 +1,9 @@
 # SemVer Changelog
 
+### 3.0.3 (2015-03-09)
+
+* **[FIXED]** `CompatibilityComparator` no longer treats versions as compatible when major version is `0` unless they are identical
+
 ### 3.0.2 (2014-10-30)
 
 * **[IMPROVED]** Updated to [Parity](https://github.com/IcecaveStudios/parity) version ~1

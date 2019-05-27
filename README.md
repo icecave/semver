@@ -1,8 +1,6 @@
 # SemVer
 
-[![Build Status]](https://travis-ci.org/IcecaveStudios/semver)
-[![Test Coverage]](https://coveralls.io/r/IcecaveStudios/semver?branch=develop)
-[![SemVer]](http://semver.org)
+> **This project has been deprecated by the authors. Use [composer/semver](https://github.com/composer/semver) instead.**
 
 **SemVer** is a PHP library for parsing and comparing version numbers according to the [Semantic Versioning standard](http://semver.org).
 The current version behaves according to version 2.0.0 of the specification.
